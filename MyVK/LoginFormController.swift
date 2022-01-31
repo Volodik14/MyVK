@@ -14,17 +14,48 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
 
     @IBAction func loginButtonPressed(_ sender: Any) {
-        // получаем текст логина
-        let login = loginInput.text!
-        // получаем текст пароль
-        let password = passwordInput.text!
                 
-        // проверяем верны ли они
-        if login == "admin" && password == "228758" {
+        // проверяем верны ли входные данные.
+        if checkUserData() {
             print("успешная авторизация")
         } else {
             print("неуспешная авторизация")
         }
+    }
+    
+    func checkUserData() -> Bool {
+        let login = loginInput.text!
+        let password = passwordInput.text!
+            
+        if login == "admin" && password == "123456" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func showLoginError() {
+        // Создаем контроллер
+        let alter = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
+        // Создаем кнопку для UIAlertController
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // Добавляем кнопку на UIAlertController
+        alter.addAction(action)
+        // показываем UIAlertController
+        present(alter, animated: true, completion: nil)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        // Проверяем данные
+        let checkResult = checkUserData()
+               
+        // если данные неверны, покажем ошибку
+        if !checkResult {
+            showLoginError()
+        }
+               
+        // вернем результат
+        return checkResult
     }
     
     override func viewDidLoad() {
@@ -47,11 +78,11 @@ class LoginFormController: UIViewController {
         // добавляем отступ внизу UIScrollView равный размеру клавиатуры
         self.scrollView?.contentInset = contentInsets
         scrollView?.scrollIndicatorInsets = contentInsets
-        }
+    }
         
     //когда клавиатура исчезает
     @objc func keyboardWillBeHidden(notification: Notification) {
-            // устанавливаем отступ внизу UIScrollView равный 0
+        // устанавливаем отступ внизу UIScrollView равный 0
         let contentInsets = UIEdgeInsets.zero
         scrollView?.contentInset = contentInsets
         scrollView?.scrollIndicatorInsets = contentInsets
