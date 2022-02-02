@@ -61,6 +61,10 @@ class LoginFormController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let vkService = VKService()
+        
+        vkService.loadWeatherData(city: "Moscow")
+        
         // жест нажатия
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         // присваиваем его UIScrollVIew
