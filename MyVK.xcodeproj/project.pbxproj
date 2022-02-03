@@ -22,6 +22,9 @@
 		AF3E5B5E27A9651A0077DFBE /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3E5B5D27A9651A0077DFBE /* AllGroupsController.swift */; };
 		AF3E5B6027A965340077DFBE /* FriendPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3E5B5F27A965340077DFBE /* FriendPhotosController.swift */; };
 		AF3E5B6227A9654C0077DFBE /* FriendPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3E5B6127A9654C0077DFBE /* FriendPhotosCell.swift */; };
+		AF8B5B2D27ABBF720004D387 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5B2C27ABBF720004D387 /* User.swift */; };
+		AF8B5B2F27ABBF7D0004D387 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5B2E27ABBF7D0004D387 /* Photo.swift */; };
+		AF8B5B3127ABBF9A0004D387 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5B3027ABBF9A0004D387 /* Group.swift */; };
 		AF8CCEA427AA74C3004F631E /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CCEA327AA74C3004F631E /* VKService.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +48,9 @@
 		AF3E5B5D27A9651A0077DFBE /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
 		AF3E5B5F27A965340077DFBE /* FriendPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosController.swift; sourceTree = "<group>"; };
 		AF3E5B6127A9654C0077DFBE /* FriendPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosCell.swift; sourceTree = "<group>"; };
+		AF8B5B2C27ABBF720004D387 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AF8B5B2E27ABBF7D0004D387 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		AF8B5B3027ABBF9A0004D387 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		AF8CCEA327AA74C3004F631E /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +104,7 @@
 		AF21BDA127A8126500534A7D /* MyVK */ = {
 			isa = PBXGroup;
 			children = (
+				AF8B5B2B27ABBF5F0004D387 /* Model */,
 				AF8CCEA227AA74A8004F631E /* Services */,
 				AF3E5B5227A95CF90077DFBE /* AllGroups */,
 				AF3E5B5127A95CDE0077DFBE /* UserGroups */,
@@ -148,6 +155,16 @@
 				AF3E5B5D27A9651A0077DFBE /* AllGroupsController.swift */,
 			);
 			path = AllGroups;
+			sourceTree = "<group>";
+		};
+		AF8B5B2B27ABBF5F0004D387 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B5B2C27ABBF720004D387 /* User.swift */,
+				AF8B5B2E27ABBF7D0004D387 /* Photo.swift */,
+				AF8B5B3027ABBF9A0004D387 /* Group.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AF8CCEA227AA74A8004F631E /* Services */ = {
@@ -273,7 +290,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8B5B2F27ABBF7D0004D387 /* Photo.swift in Sources */,
+				AF8B5B2D27ABBF720004D387 /* User.swift in Sources */,
 				AF3E5B6227A9654C0077DFBE /* FriendPhotosCell.swift in Sources */,
+				AF8B5B3127ABBF9A0004D387 /* Group.swift in Sources */,
 				AF21BDB727A8129800534A7D /* LoginFormController.swift in Sources */,
 				AF3E5B5427A95D830077DFBE /* FriendsController.swift in Sources */,
 				AF3E5B5827A964CC0077DFBE /* UserGroupsController.swift in Sources */,
