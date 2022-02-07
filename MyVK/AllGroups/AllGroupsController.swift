@@ -8,21 +8,16 @@
 import UIKit
 
 class AllGroupsController: UITableViewController {
-    var groups = [
-        "kek",
-        "lol",
-        "OMG",
-        "WTF",
-        "Kitties",
-        "Why"
-    ]
+    var groups = [Group]()
     
-    var userGroups = [String]()
+    var userGroups = [Group]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        groups = MyData.shared.searchGroups
         
         groups.removeAll(where: userGroups.contains(_:))
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -46,12 +41,22 @@ class AllGroupsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allGroupsCell", for: indexPath) as! AllGroupsCell
+        
+        let group = groups[indexPath.row]
 
-        let groupName = groups[indexPath.row]
-        let groupImage = UIImage(systemName: "circle")
+        let groupName = group.name
+        
+        let url = URL(string: group.photo.url)!
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    cell.groupImage.image = UIImage(data: data)
+                    //TODO: Добавить установку размера.
+                }
+            }
+        }
 
         cell.groupName.text = groupName
-        cell.groupImage.image = groupImage
         
         return cell
     }

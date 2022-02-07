@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class VKService {
     let userId: String
@@ -19,25 +20,61 @@ class VKService {
         self.accessToken = accessToken
     }
     
+    func loadFriendsData(completion: @escaping ([User]) -> Void) {
+        let friendsParameters = ["access_token": accessToken,
+                                 "user_id": userId,
+                                 "fields": "nickname, photo_200_orig",
+                                 "v": "5.131"
+        ]
+        
+        var friends = [User]()
+        
+        AF.request(baseURL + "friends.get", method: .get, parameters: friendsParameters, encoding: URLEncoding.default).responseData { (response) in
+            do {
+                let data = try response.result.get()
+                let json = try JSON(data: data)["response"]["items"]
+                for index in 0..<json.count {
+                    friends.append(User(json: json[index]))
+                }
+                print(friends.count)
+            } catch {
+                print("Error: download exception!")
+            }
+            MyData.shared.users = friends
+            completion(friends)
+            //print(response)
+        }
+    }
     
-    // метод для загрузки данных, в качестве аргументов получает город
-    func loadUserData(){
-        //AF.request(url, method: .get, parameters: parameters, encoder: JSONParameterEncoder.default).response { repsonse in
-        //    debugPrint(repsonse)
-        //}
+    func loadPhotosData(completion: @escaping ([Photo]) -> Void) {
+        let photosParameters = ["access_token": accessToken,
+                                "owner_id": userId,
+                                "v": "5.131",
+                                "album_id": "profile"
+        ]
         
-        struct VKRequest: Encodable {
-            let access_token: String
-            let oauth: Bool
-            let user_id: String
-            let extended: Bool
-            let v: String
-        }
+        var photos = [Photo]()
         
-        struct Temp: Encodable {
+        AF.request(baseURL + "photos.get", method: .get, parameters: photosParameters, encoding: URLEncoding.default).responseData { (response) in
+            do {
+                let data = try response.result.get()
+                let json = try JSON(data: data)["response"]["items"]
+                for index in 0..<json.count {
+                    photos.append(Photo(json: json[index]))
+                }
+                print(photos.count)
+            } catch {
+                print("Error: download exception!")
+            }
             
+            //print(response)
         }
-        
+        MyData.shared.photo = photos
+        print("\(MyData.shared.photo.count) + photos")
+        completion(photos)
+    }
+    
+    func loadGroupsData(completion: @escaping ([Group]) -> Void) {
         let groupsParameters = ["access_token": accessToken,
                                 "user_id": userId,
                                 "extended": "1",
@@ -45,48 +82,56 @@ class VKService {
                                 "v": "5.131"
         ]
         
-        let friendsParameters = ["access_token": accessToken,
-                                 "user_id": userId,
-                                 "v": "5.131"
-        ]
         
-        let photosParameters = ["access_token": accessToken,
-                                "owner_id": userId,
-                                "v": "5.131",
-                                "album_id": "profile"
-        ]
+        var groups = [Group]()
         
+        AF.request(baseURL + "groups.get", method: .get, parameters: groupsParameters, encoding: URLEncoding.default).responseData { (response) in
+            
+            do {
+                let data = try response.result.get()
+                let json = try JSON(data: data)["response"]["items"]
+                for index in 0..<json.count {
+                    groups.append(Group(json: json[index]))
+                }
+                
+                print(groups.count)
+            } catch {
+                print("Error: download exception!")
+            }
+            
+            
+            //print(response)
+        }
+        MyData.shared.groups = groups
+        completion(groups)
+    }
+    
+    func loadGroupsDataBySearch(search: String = "Группа", completion: @escaping ([Group]) -> Void) {
         let allGroupsParameters = ["access_token": accessToken,
                                    "count": "50",
                                    "v": "5.131",
-                                   "q": "Группа"
+                                   "q": search
         ]
         
-        let groupsRequest = AF.request(baseURL + "groups.get", method: .get, parameters: groupsParameters, encoding: URLEncoding.default).responseJSON { (response) in
-            print(response)
+        var allGroups = [Group]()
+        
+        AF.request(baseURL + "groups.search", method: .get, parameters: allGroupsParameters, encoding: URLEncoding.default).responseData { (response) in
+            do {
+                let data = try response.result.get()
+                let json = try JSON(data: data)["response"]["items"]
+                for index in 0..<json.count {
+                    allGroups.append(Group(json: json[index]))
+                }
+                
+                print(allGroups.count)
+            } catch {
+                print("Error: download exception!")
+            }
+            
+            //print(response)
         }
-        
-        let allGroupsRequest = AF.request(baseURL + "groups.search", method: .get, parameters: allGroupsParameters, encoding: URLEncoding.default).responseJSON { (response) in
-            print(response)
-        }
-        
-        let photosRequest = AF.request(baseURL + "photos.get", method: .get, parameters: photosParameters, encoding: URLEncoding.default).responseJSON { (response) in
-            print(response)
-        }
-        
-        let friendsRequest = AF.request(baseURL + "friends.get", method: .get, parameters: friendsParameters, encoding: URLEncoding.default).responseJSON { (response) in
-            print(response)
-        }
-        
-        
-        
-        
-        
-        
-        //request.response { response in debugPrint(response) }
-        
-        let request2 = URLRequest(url: URL(string: baseURL + "groupds.get/access_token=" + accessToken)!)
-        //print(request2.response)
+        MyData.shared.searchGroups = allGroups
+        completion(allGroups)
     }
     
 }

@@ -16,8 +16,6 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
     
     let webView = WKWebView()
     
-    //var accessToken: String? = ""
-    //var userId: String? = ""
     
     // TODO: Удалить. Больше не используется.
     @IBAction func loginButtonPressed(_ sender: Any) {
@@ -41,48 +39,34 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
             //print(urlComponents.queryItems)
             //print(correctUrl)
             if accessToken != nil && userId != nil {
-                performSegue(withIdentifier: "showTabBar", sender: self)
-                print(accessToken ?? "")
-                print(userId ?? "")
                 let vkService = VKService(userId!, accessToken!)
-                vkService.loadUserData()
+                vkService.loadGroupsData(completion: {groups in
+                    //MyData.shared.groups = groups
+                    //print(MyData.shared.groups.count)
+                })
+                vkService.loadPhotosData(completion: {photos in
+                    //yData.shared.photo = photos
+                    //print(MyData.shared.photo.count)
+                })
+                vkService.loadFriendsData(completion: {friends in
+                    //MyData.shared.users = friends
+                    //TODO: Перенести адекватно.
+                    self.performSegue(withIdentifier: "showTabBar", sender: self)
+                    print(accessToken ?? "")
+                    print(userId ?? "")
+                })
+                vkService.loadGroupsDataBySearch(completion: {groups in
+                    //MyData.shared.searchGroups = groups
+                    
+                    
+                })
+                
+                
             }
         }
         decisionHandler(.allow)
     }
     
-    // TODO: Удалить. Больше не используется.
-    /*
-     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-     if let urlStr = webView.url?.absoluteString {
-     let correctUrl = urlStr.replacingOccurrences(of: "#", with: "?")
-     guard let urlComponents = URLComponents(string: correctUrl) else { return }
-     access_token = urlComponents.queryItems?.first(where: { $0.name == "access_token" })?.value ?? ""
-     user_id = urlComponents.queryItems?.first(where: { $0.name == "user_id" })?.value ?? ""
-     //print(urlComponents.queryItems)
-     print(correctUrl)
-     print(access_token)
-     print(user_id)
-     }
-     }
-     */
-    
-    /*
-     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-     if keyPath == "URL" {
-     guard let currentUrl = webView.backForwardList.currentItem?.url.absoluteString else { return }
-     let correctUrl = currentUrl.replacingOccurrences(of: "%253D", with: "=").replacingOccurrences(of: "%253D", with: "=").replacingOccurrences(of: "%2526", with: "&").replacingOccurrences(of: "%2523", with: "?").replacingOccurrences(of: "%252F", with: "/").replacingOccurrences(of: "%253A", with: ":")
-     guard let urlComponents = URLComponents(string: correctUrl) else { return }
-     access_token = urlComponents.queryItems?.first(where: { $0.name == "access_token" })?.value ?? ""
-     user_id = urlComponents.queryItems?.first(where: { $0.name == "user_id" })?.value ?? ""
-     //print(urlComponents.queryItems)
-     print(correctUrl)
-     //print(access_token)
-     //print(user_id)
-     }
-     
-     }
-     */
     
     
     override func loadView() {

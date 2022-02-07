@@ -9,17 +9,13 @@ import UIKit
 
 class FriendsController: UITableViewController {
 
-    var friends = [
-            "Vanya",
-            "Petya",
-            "Misha",
-            "Katya"
-        ]
+    var friends = [User]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        friends = MyData.shared.users
+        print("friends \(friends.count)")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,11 +41,22 @@ class FriendsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         
-        let friendName = friends[indexPath.row]
-        let friendPhoto = UIImage(systemName: "circle")
-
+        let friend = friends[indexPath.row]
+        
+        let friendName = friend.firstName + " " + friend.lastName
+        
+        let url = URL(string: friend.photos.first!.url)!
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    cell.friendPhoto.image = UIImage(data: data)
+                    //TODO: Добавить установку размера.
+                }
+            }
+        }
+        
+        
         cell.friendName.text = friendName
-        cell.friendPhoto.image = friendPhoto
         
         return cell
     }

@@ -8,11 +8,7 @@
 import UIKit
 
 class UserGroupsController: UITableViewController {
-    var userGroups = [
-        "kek",
-        "lol",
-        "OMG"
-    ]
+    var userGroups = [Group]()
     
     @IBAction func addGroup(unwindSegue: UIStoryboardSegue) {
         // Проверяем идентификатор перехода, чтобы убедится, что это нужный переход
@@ -45,6 +41,8 @@ class UserGroupsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userGroups = MyData.shared.groups
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -75,14 +73,24 @@ class UserGroupsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "userGroupsCell", for: indexPath) as! UserGroupCell
+        
+        let group = userGroups[indexPath.row]
 
-         let groupName = userGroups[indexPath.row]
-         let groupImage = UIImage(systemName: "circle")
+        let groupName = group.name
+        
+        let url = URL(string: group.photo.url)!
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    cell.groupImage.image = UIImage(data: data)
+                    //TODO: Добавить установку размера.
+                }
+            }
+        }
 
-         cell.groupName.text = groupName
-         cell.groupImage.image = groupImage
+        cell.groupName.text = groupName
          
-         return cell
+        return cell
      }
      
     
