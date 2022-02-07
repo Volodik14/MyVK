@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class UserGroupsController: UITableViewController {
     var userGroups = [Group]()
@@ -22,6 +23,9 @@ class UserGroupsController: UITableViewController {
                 let group = allGroupsController.groups[indexPath.row]
                 // добавляем город в список выбранных городов
                 userGroups.append(group)
+                
+                let vkService = VKService(myData.userId, myData.accessToken)
+                vkService.joinGroup(groupId: group.id)
                 // обновляем таблицу
                 tableView.reloadData()
             }
@@ -36,12 +40,15 @@ class UserGroupsController: UITableViewController {
             userGroups.remove(at: indexPath.row)
             // и удаляем строку из таблицы
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            let vkService = VKService(myData.userId, myData.accessToken)
+            vkService.leaveGroup(groupId: userGroups[indexPath.row].id)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userGroups = MyData.shared.groups
+        loadData()
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -49,6 +56,18 @@ class UserGroupsController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func loadData() {
+        do {
+            let realm = try Realm()
+            
+            let userGroups = realm.objects(Group.self)
+            
+            self.userGroups = Array(userGroups)
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - Table view data source
@@ -78,7 +97,7 @@ class UserGroupsController: UITableViewController {
 
         let groupName = group.name
         
-        let url = URL(string: group.photo.url)!
+        let url = URL(string: group.photo!.url)!
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {

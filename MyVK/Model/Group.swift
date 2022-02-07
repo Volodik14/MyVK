@@ -10,15 +10,16 @@ import SwiftyJSON
 import RealmSwift
 
 class Group: Object {
-    static func == (lhs: Group, rhs: Group) -> Bool {
-        lhs.name == rhs.name
-    }
+    @objc dynamic var name = ""
+    @objc dynamic var id = ""
+    @objc dynamic var countMembers = ""
+    @objc dynamic var photo: Photo? = nil
     
-    dynamic var name = ""
-    dynamic var photo: Photo
-    
-    init(json: JSON) {
-        self.name = json["height"].stringValue
+    convenience init(json: JSON) {
+        self.init()
+        self.id = json["id"].stringValue
+        self.countMembers = json["members_count"].stringValue
+        self.name = json["name"].stringValue
         self.photo = Photo(url: json["photo_200"].stringValue)
     }
 }

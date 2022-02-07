@@ -10,19 +10,22 @@ import SwiftyJSON
 import RealmSwift
 
 class Photo: Object {
-    dynamic var height = 0
-    dynamic var width = 0
-    dynamic var url = ""
+    @objc dynamic var height = 0
+    @objc dynamic var width = 0
+    @objc dynamic var url = ""
     
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         self.height = json["height"].intValue
         self.width = json["width"].intValue
         self.url = json["url"].stringValue
     }
     
-    init(url: String) {
+    convenience init(url: String) {
+        self.init()
         self.url = url
         self.width = 200
         self.height = 200
     }
+    
 }

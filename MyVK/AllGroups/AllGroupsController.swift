@@ -6,17 +6,44 @@
 //
 
 import UIKit
+import RealmSwift
 
-class AllGroupsController: UITableViewController {
+class AllGroupsController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let vkService = VKService(myData.userId, myData.accessToken)
+        vkService.loadGroupsDataBySearch(search: searchController.searchBar.text!, completion: { searchGroups in
+            self.groups = searchGroups
+        })
+        self.tableView.reloadData()
+    }
+        
     var groups = [Group]()
-    
+    var resultSearchController = UISearchController()
+
     var userGroups = [Group]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        groups = MyData.shared.searchGroups
         
-        groups.removeAll(where: userGroups.contains(_:))
+        //loadData()
+        
+        
+        
+        resultSearchController = ({
+                let controller = UISearchController(searchResultsController: nil)
+                controller.searchResultsUpdater = self
+                controller.dimsBackgroundDuringPresentation = false
+                controller.searchBar.sizeToFit()
+
+                tableView.tableHeaderView = controller.searchBar
+
+                return controller
+            })()
+
+            // Reload the table
+            tableView.reloadData()
+        
+        //groups.removeAll(where: userGroups.contains(_:))
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -24,6 +51,18 @@ class AllGroupsController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func loadData() {
+        do {
+            let realm = try Realm()
+            
+            let userGroups = realm.objects(Group.self)
+            
+            self.userGroups = Array(userGroups)
+        } catch {
+            print(error)
+        }
     }
 
     // MARK: - Table view data source
@@ -45,17 +84,22 @@ class AllGroupsController: UITableViewController {
         let group = groups[indexPath.row]
 
         let groupName = group.name
+        let membersCount = group.countMembers
         
-        let url = URL(string: group.photo.url)!
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    cell.groupImage.image = UIImage(data: data)
-                    //TODO: Добавить установку размера.
+        if let groupPhoto = group.photo {
+            let url = URL(string: groupPhoto.url)!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        cell.groupImage.image = UIImage(data: data)
+                    }
                 }
             }
+        } else {
+            cell.groupImage.image = UIImage(systemName: "circle")
         }
-
+        
+        cell.groupSubsCount.text = membersCount + " участников"
         cell.groupName.text = groupName
         
         return cell

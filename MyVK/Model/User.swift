@@ -10,19 +10,24 @@ import SwiftyJSON
 import RealmSwift
 
 class User: Object {
-    dynamic var firstName = ""
-    dynamic var lastName = ""
-    dynamic var photos = [Photo]()
+    @objc dynamic var firstName = ""
+    @objc dynamic var lastName = ""
+    @objc dynamic var id = ""
+    @objc dynamic var photo: Photo? = nil
     
-    init(json: JSON, photos: [Photo]) {
+    convenience init(json: JSON, photo: Photo) {
+        self.init()
+        self.id = json["id"].stringValue
         self.firstName = json["first_name"].stringValue
         self.lastName = json["last_name"].stringValue
-        self.photos = photos
+        self.photo = photo
     }
     
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
+        self.id = json["id"].stringValue
         self.firstName = json["first_name"].stringValue
         self.lastName = json["last_name"].stringValue
-        self.photos = [Photo(url: json["photo_200_orig"].stringValue)]
+        self.photo = Photo(url: json["photo_200_orig"].stringValue)
     }
 }

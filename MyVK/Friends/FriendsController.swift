@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
+
+
+import UIKit
 
 class FriendsController: UITableViewController {
 
@@ -14,13 +18,36 @@ class FriendsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        friends = MyData.shared.users
+        loadData()
         print("friends \(friends.count)")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.reloadData()
+    }
+    
+    func loadData() {
+        do {
+            let realm = try Realm()
+            
+            let friends = realm.objects(User.self)
+            
+            self.friends = Array(friends)
+        } catch {
+            print(error)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showFriendPhotos") {
+            let friendsPhotosController = (segue.destination as! FriendPhotosController)
+            if let row = tableView.indexPathForSelectedRow?.row {
+                friendsPhotosController.userId = friends[row].id
+            }
+            
+        }
     }
 
     // MARK: - Table view data source
@@ -44,15 +71,23 @@ class FriendsController: UITableViewController {
         let friend = friends[indexPath.row]
         
         let friendName = friend.firstName + " " + friend.lastName
-        
-        let url = URL(string: friend.photos.first!.url)!
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    cell.friendPhoto.image = UIImage(data: data)
-                    //TODO: Добавить установку размера.
+        cell.friendPhoto.image = nil
+        if let friendPhoto = friend.photo {
+            let url = URL(string: friendPhoto.url)!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        var image = UIImage(data: data)
+                        //image = image?.scalePreservingAspectRatio(targetSize: CGSize(width: 26, height: 26))
+                        //cell.friendPhoto.clipsToBounds = true
+                        cell.friendPhoto.image = image
+                        //self.tableView.reloadRows(at: [indexPath], with: .none)
+                        //TODO: Починить отображение
+                    }
                 }
             }
+        } else {
+            cell.friendPhoto.image = UIImage(systemName: "circle")
         }
         
         

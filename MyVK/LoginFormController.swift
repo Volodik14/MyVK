@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import RealmSwift
 
 class LoginFormController: UIViewController, WKNavigationDelegate {
     
@@ -29,7 +30,7 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
         
     }
     
-    // Рабочий вариант, но не совсем подходящий.
+    // Рабочий вариант для отображения WebView.
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         if let urlStr = navigationAction.request.url?.absoluteString {
             let correctUrl = urlStr.replacingOccurrences(of: "#", with: "?")
@@ -38,31 +39,32 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
             let userId = urlComponents.queryItems?.first(where: { $0.name == "user_id" })?.value
             //print(urlComponents.queryItems)
             //print(correctUrl)
+            
             if accessToken != nil && userId != nil {
                 let vkService = VKService(userId!, accessToken!)
+                
                 vkService.loadGroupsData(completion: {groups in
                     //MyData.shared.groups = groups
                     //print(MyData.shared.groups.count)
                 })
+                 /*
                 vkService.loadPhotosData(completion: {photos in
-                    //yData.shared.photo = photos
+                    //MyData.shared.photo = photos
                     //print(MyData.shared.photo.count)
                 })
+                 */
                 vkService.loadFriendsData(completion: {friends in
                     //MyData.shared.users = friends
-                    //TODO: Перенести адекватно.
                     self.performSegue(withIdentifier: "showTabBar", sender: self)
                     print(accessToken ?? "")
                     print(userId ?? "")
                 })
-                vkService.loadGroupsDataBySearch(completion: {groups in
-                    //MyData.shared.searchGroups = groups
-                    
-                    
-                })
                 
+                myData.accessToken = accessToken!
+                myData.userId = userId!
                 
             }
+            
         }
         decisionHandler(.allow)
     }

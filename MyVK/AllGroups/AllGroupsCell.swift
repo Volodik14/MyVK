@@ -9,6 +9,7 @@ import UIKit
 
 class AllGroupsCell: UITableViewCell {
     
+    @IBOutlet weak var groupSubsCount: UILabel!
     @IBOutlet weak var groupImage: UIImageView!
     @IBOutlet weak var groupName: UILabel!
     

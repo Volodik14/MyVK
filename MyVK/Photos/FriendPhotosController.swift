@@ -10,6 +10,9 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class FriendPhotosController: UICollectionViewController {
+    
+    var userPhotos = [Photo]()
+    var userId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +22,17 @@ class FriendPhotosController: UICollectionViewController {
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        let vkService = VKService(myData.userId, myData.accessToken)
+        vkService.loadUserProfilePhotos(userId: userId, completion: {photos in
+            //print("photos \(photos)")
+            self.userPhotos = photos
+            self.collectionView.reloadData()
+        })
+        
         // Do any additional setup after loading the view.
     }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -43,15 +54,33 @@ class FriendPhotosController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 6
+        
+        print(userPhotos.count)
+        return userPhotos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotosCell", for: indexPath) as! FriendPhotosCell
     
-        let friendPhoto = UIImage(systemName: "circle")
+        let photo = userPhotos[indexPath.row]
 
-        cell.friendPhoto.image = friendPhoto
+        cell.friendPhoto.image = nil
+            let url = URL(string: photo.url)!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        var image = UIImage(data: data)
+                        //image = image?.scalePreservingAspectRatio(targetSize: CGSize(width: 26, height: 26))
+                        //cell.friendPhoto.clipsToBounds = true
+                        cell.friendPhoto.image = image
+                        //self.tableView.reloadRows(at: [indexPath], with: .none)
+                        //TODO: Починить отображение
+                    }
+                } else {
+                    cell.friendPhoto.image = UIImage(systemName: "circle")
+                }
+            }
+        
     
         return cell
     }
