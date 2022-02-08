@@ -12,7 +12,7 @@ import RealmSwift
 class User: Object {
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
-    @objc dynamic var id = ""
+    @objc dynamic var id = UUID().uuidString
     @objc dynamic var photo: Photo? = nil
     
     convenience init(json: JSON, photo: Photo) {
@@ -30,4 +30,8 @@ class User: Object {
         self.lastName = json["last_name"].stringValue
         self.photo = Photo(url: json["photo_200_orig"].stringValue)
     }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+      }
 }

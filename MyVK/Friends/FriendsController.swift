@@ -12,20 +12,16 @@ import RealmSwift
 import UIKit
 
 class FriendsController: UITableViewController {
-
+    var notificationToken: NotificationToken? = nil
     var friends = [User]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
-        print("friends \(friends.count)")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        tableView.reloadData()
+        pairTableAndRealm()
     }
     
+    //Загрузка данных.
     func loadData() {
         do {
             let realm = try Realm()
@@ -37,7 +33,7 @@ class FriendsController: UITableViewController {
             print(error)
         }
     }
-    
+    // Перезод на контроллер показа фото.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "showFriendPhotos") {
             let friendsPhotosController = (segue.destination as! FriendPhotosController)
@@ -47,21 +43,46 @@ class FriendsController: UITableViewController {
             
         }
     }
+    
+    // Подключение уведомлений Realm и загрузка изначальных данных.
+    func pairTableAndRealm() {
+        guard let realm = try? Realm() else { return }
+        
+        let friends = realm.objects(User.self)
+        self.friends = Array(friends)
+        
+        notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
+                    guard let tableView = self?.tableView else { return }
+                    switch changes {
+                    case .initial:
+                        tableView.reloadData()
+                    case .update(_, let deletions, let insertions, let modifications):
+                        tableView.beginUpdates()
+                        tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                             with: .automatic)
+                        tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                             with: .automatic)
+                        tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                             with: .automatic)
+                        tableView.endUpdates()
+                    case .error(let error):
+                        // An error occurred while opening the Realm file on the background worker thread
+                        fatalError("\(error)")
+                    }
+                }
+
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-   
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return friends.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
@@ -70,17 +91,14 @@ class FriendsController: UITableViewController {
         
         let friendName = friend.firstName + " " + friend.lastName
         cell.friendPhoto.image = nil
+        // Асинхронно задаём фото для строки.
         if let friendPhoto = friend.photo {
             let url = URL(string: friendPhoto.url)!
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url) {
                     DispatchQueue.main.async {
-                        var image = UIImage(data: data)
-                        //image = image?.scalePreservingAspectRatio(targetSize: CGSize(width: 26, height: 26))
-                        //cell.friendPhoto.clipsToBounds = true
+                        let image = UIImage(data: data)
                         cell.friendPhoto.image = image
-                        //self.tableView.reloadRows(at: [indexPath], with: .none)
-                        //TODO: Починить отображение
                     }
                 }
             }
@@ -88,56 +106,10 @@ class FriendsController: UITableViewController {
             cell.friendPhoto.image = UIImage(systemName: "circle")
         }
         
-        
         cell.friendName.text = friendName
         
         return cell
     }
-    
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

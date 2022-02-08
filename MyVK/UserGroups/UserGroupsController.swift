@@ -14,18 +14,18 @@ class UserGroupsController: UITableViewController {
     var userId = ""
     
     @IBAction func addGroup(unwindSegue: UIStoryboardSegue) {
-        // Проверяем идентификатор перехода, чтобы убедится, что это нужный переход
+        // Проверяем идентификатор перехода, чтобы убедится, что это нужный переход.
         if unwindSegue.identifier == "addGroup" {
-            // Получаем ссылку на контроллер, с которого осуществлен переход
+            // Получаем ссылку на контроллер, с которого осуществлен переход.
             let allGroupsController = unwindSegue.source as! AllGroupsController
             
-            // получаем индекс выделенной ячейки
+            // Получаем индекс выделенной ячейки
             if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
-                // получаем город по индексу
+                // Получаем группу по индексу
                 let group = allGroupsController.groups[indexPath.row]
-                // добавляем город в список выбранных городов
+                // Добавляем группу в список выбранных городов
                 userGroups.append(group)
-                
+                // Вступаем в группу.
                 let vkService = VKService(userId, accessToken)
                 vkService.joinGroup(groupId: group.id)
                 // обновляем таблицу
@@ -36,13 +36,13 @@ class UserGroupsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // если была нажата кнопка удалить
+        // Если была нажата кнопка удалить
         if editingStyle == .delete {
-            // мы удаляем город из массива
+            // Удаляем группу из своих.
             userGroups.remove(at: indexPath.row)
-            // и удаляем строку из таблицы
+            // Удаляем строку с ней.
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
+            // Выходим из группы.
             let vkService = VKService(userId, accessToken)
             vkService.leaveGroup(groupId: userGroups[indexPath.row].id)
         }
@@ -50,6 +50,7 @@ class UserGroupsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Получаем токен и id пользователя.
         if let userId = UserDefaults.standard.string(forKey: "userId") {
             if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
                 self.userId = userId
@@ -63,14 +64,9 @@ class UserGroupsController: UITableViewController {
         
         loadData()
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    // Загрузка данных.
     func loadData() {
         do {
             let realm = try Realm()
@@ -86,12 +82,10 @@ class UserGroupsController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return userGroups.count
     }
     
@@ -115,7 +109,6 @@ class UserGroupsController: UITableViewController {
             if let data = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {
                     cell.groupImage.image = UIImage(data: data)
-                    //TODO: Добавить установку размера.
                 }
             }
         }
@@ -125,50 +118,5 @@ class UserGroupsController: UITableViewController {
         return cell
      }
      
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

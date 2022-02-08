@@ -11,7 +11,7 @@ import RealmSwift
 
 class Group: Object {
     @objc dynamic var name = ""
-    @objc dynamic var id = ""
+    @objc dynamic var id = UUID().uuidString
     @objc dynamic var countMembers = ""
     @objc dynamic var photo: Photo? = nil
     
@@ -22,4 +22,12 @@ class Group: Object {
         self.name = json["name"].stringValue
         self.photo = Photo(url: json["photo_200"].stringValue)
     }
+    
+    static func == (lhs: Group, rhs: Group) -> Bool {
+            return lhs.id == rhs.id
+    }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+      }
 }

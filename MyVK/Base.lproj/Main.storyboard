@@ -61,15 +61,15 @@
                                             <constraint firstAttribute="width" id="R5c-K7-Q2h"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hsl-fi-rRe">
-                                        <rect key="frame" x="84" y="215" width="200" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hsl-fi-rRe">
+                                        <rect key="frame" x="15" y="222" width="200" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="S0y-tO-2L7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byS-WD-psP">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byS-WD-psP">
                                         <rect key="frame" x="84" y="125" width="200" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="q1g-lm-7zQ"/>
@@ -134,7 +134,7 @@
             </objects>
             <point key="canvasLocation" x="-830" y="110"/>
         </scene>
-        <!--Friends Controller-->
+        <!--Друзья-->
         <scene sceneID="wk6-gL-EtJ">
             <objects>
                 <tableViewController id="idZ-Dz-xvP" customClass="FriendsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
@@ -185,7 +185,7 @@
                             <outlet property="delegate" destination="idZ-Dz-xvP" id="XkT-HK-lcU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gPO-2k-SrG"/>
+                    <navigationItem key="navigationItem" title="Друзья" id="gPO-2k-SrG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vm6-bm-WCA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,11 +259,11 @@
             </objects>
             <point key="canvasLocation" x="129" y="110"/>
         </scene>
-        <!--Item-->
+        <!--Users-->
         <scene sceneID="EV7-KH-crh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J9C-1E-C9D" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="lwm-ru-zug" userLabel="Friends"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J9C-1E-C9D" userLabel="Users" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Друзья" image="person.fill" catalog="system" selectedImage="person.fill" id="lwm-ru-zug" userLabel="Friends"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nqW-C7-vxt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -278,11 +278,11 @@
             </objects>
             <point key="canvasLocation" x="1028.985507246377" y="-417.1875"/>
         </scene>
-        <!--Title-->
+        <!--Groups-->
         <scene sceneID="c76-zi-a3b">
             <objects>
-                <tableViewController id="dgM-bh-cTL" customClass="UserGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="p8I-cv-uiF">
+                <tableViewController id="dgM-bh-cTL" userLabel="Groups" customClass="UserGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="p8I-cv-uiF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -328,8 +328,8 @@
                             <outlet property="delegate" destination="dgM-bh-cTL" id="TFc-LB-dxP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="I9p-Zj-dAQ">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Xmm-Cb-KmG">
+                    <navigationItem key="navigationItem" title="Группы" id="I9p-Zj-dAQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Xmm-Cb-KmG">
                             <connections>
                                 <segue destination="8jJ-nO-y4f" kind="show" identifier="showGroups" id="FoI-6i-x8E"/>
                             </connections>
@@ -340,11 +340,11 @@
             </objects>
             <point key="canvasLocation" x="2344.9275362318845" y="336.83035714285711"/>
         </scene>
-        <!--Item-->
+        <!--Группы-->
         <scene sceneID="MyQ-mr-BDJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1VS-Jc-L82" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="8Vh-Me-0y6" userLabel="Groups"/>
+                    <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" selectedImage="person.3.fill" id="8Vh-Me-0y6" userLabel="Groups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cey-v8-ElS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -427,6 +427,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
