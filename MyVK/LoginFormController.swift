@@ -37,10 +37,14 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
             guard let urlComponents = URLComponents(string: correctUrl) else { return }
             let accessToken = urlComponents.queryItems?.first(where: { $0.name == "access_token" })?.value
             let userId = urlComponents.queryItems?.first(where: { $0.name == "user_id" })?.value
-            //print(urlComponents.queryItems)
-            //print(correctUrl)
-            
             if accessToken != nil && userId != nil {
+                UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                if let oldUserId = UserDefaults.standard.string(forKey: "userId") {
+                    if oldUserId != userId {
+                        //TODO: Удалить старые данные.
+                        UserDefaults.standard.set(userId, forKey: "userId")
+                    }
+                }
                 let vkService = VKService(userId!, accessToken!)
                 
                 vkService.loadGroupsData(completion: {groups in
@@ -59,9 +63,6 @@ class LoginFormController: UIViewController, WKNavigationDelegate {
                     print(accessToken ?? "")
                     print(userId ?? "")
                 })
-                
-                myData.accessToken = accessToken!
-                myData.userId = userId!
                 
             }
             

@@ -30,8 +30,8 @@
             filePath = "MyVK/UserGroups/UserGroupsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "addGroup(unwindSegue:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "MyVK/UserGroups/UserGroupsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "addGroup(unwindSegue:)"
             landmarkType = "7">
          </BreakpointContent>

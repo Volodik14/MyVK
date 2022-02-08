@@ -10,6 +10,8 @@ import RealmSwift
 
 class UserGroupsController: UITableViewController {
     var userGroups = [Group]()
+    var accessToken = ""
+    var userId = ""
     
     @IBAction func addGroup(unwindSegue: UIStoryboardSegue) {
         // Проверяем идентификатор перехода, чтобы убедится, что это нужный переход
@@ -24,7 +26,7 @@ class UserGroupsController: UITableViewController {
                 // добавляем город в список выбранных городов
                 userGroups.append(group)
                 
-                let vkService = VKService(myData.userId, myData.accessToken)
+                let vkService = VKService(userId, accessToken)
                 vkService.joinGroup(groupId: group.id)
                 // обновляем таблицу
                 tableView.reloadData()
@@ -41,13 +43,24 @@ class UserGroupsController: UITableViewController {
             // и удаляем строку из таблицы
             tableView.deleteRows(at: [indexPath], with: .fade)
             
-            let vkService = VKService(myData.userId, myData.accessToken)
+            let vkService = VKService(userId, accessToken)
             vkService.leaveGroup(groupId: userGroups[indexPath.row].id)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let userId = UserDefaults.standard.string(forKey: "userId") {
+            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+                self.userId = userId
+                self.accessToken = accessToken
+            } else {
+                print("Cannot get data, cannot get access token!")
+            }
+        } else {
+            print("Cannot get data, cannot get user id!")
+        }
+        
         loadData()
         
         

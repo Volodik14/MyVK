@@ -9,8 +9,12 @@ import UIKit
 import RealmSwift
 
 class AllGroupsController: UITableViewController, UISearchResultsUpdating {
+    var userId = ""
+    var accessToken = ""
+    
     func updateSearchResults(for searchController: UISearchController) {
-        let vkService = VKService(myData.userId, myData.accessToken)
+        
+        let vkService = VKService(userId, accessToken)
         vkService.loadGroupsDataBySearch(search: searchController.searchBar.text!, completion: { searchGroups in
             self.groups = searchGroups
         })
@@ -26,7 +30,16 @@ class AllGroupsController: UITableViewController, UISearchResultsUpdating {
         super.viewDidLoad()
         
         //loadData()
-        
+        if let userId = UserDefaults.standard.string(forKey: "userId") {
+            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+                self.userId = userId
+                self.accessToken = accessToken
+            } else {
+                print("Cannot get data, cannot get access token!")
+            }
+        } else {
+            print("Cannot get data, cannot get user id!")
+        }
         
         
         resultSearchController = ({

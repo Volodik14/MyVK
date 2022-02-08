@@ -7,10 +7,4 @@
 
 import Foundation
 
-// Временный костыль для хранения данных.
-public struct MyData {
-    public var accessToken = ""
-    public var userId = ""
-}
 
-var myData = MyData.self(accessToken: "", userId: "")
