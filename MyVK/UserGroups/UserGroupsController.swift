@@ -26,8 +26,8 @@ class UserGroupsController: UITableViewController {
                 // Добавляем группу в список выбранных городов
                 userGroups.append(group)
                 // Вступаем в группу.
-                let vkService = VKService(userId, accessToken)
-                vkService.joinGroup(groupId: group.id)
+                //let vkService = VKService(userId, accessToken)
+                //vkService.joinGroup(groupId: group.id)
                 // обновляем таблицу
                 tableView.reloadData()
             }
@@ -38,13 +38,14 @@ class UserGroupsController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // Если была нажата кнопка удалить
         if editingStyle == .delete {
+            // Выходим из группы.
+            //let vkService = VKService(userId, accessToken)
+            //vkService.leaveGroup(groupId: userGroups[indexPath.row].id)
             // Удаляем группу из своих.
             userGroups.remove(at: indexPath.row)
             // Удаляем строку с ней.
             tableView.deleteRows(at: [indexPath], with: .fade)
-            // Выходим из группы.
-            let vkService = VKService(userId, accessToken)
-            vkService.leaveGroup(groupId: userGroups[indexPath.row].id)
+            
         }
     }
     

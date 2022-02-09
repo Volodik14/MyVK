@@ -8,29 +8,9 @@
 import UIKit
 import RealmSwift
 
-class AllGroupsController: UITableViewController, UISearchResultsUpdating {
+class AllGroupsController: UITableViewController {
     var userId = ""
     var accessToken = ""
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        // MARK: - Проблема с фильтрацией вывода только групп пользователя.
-        let vkService = VKService(userId, accessToken)
-        vkService.loadGroupsDataBySearch(search: searchController.searchBar.text!, completion: { [self] searchGroups in
-            // Не работает contains...
-            //self.groups.removeAll(where: self.userGroups.contains(_:))
-            
-            let groupsWithoutUserGroups = searchGroups.filter( { (searchGroup) -> Bool in
-                for userGroup in userGroups  {
-                    if searchGroup == userGroup  {
-                        return false
-                    }
-                }
-                return true
-            })
-            self.groups = groupsWithoutUserGroups
-        })
-        self.tableView.reloadData()
-    }
     
     var groups = [Group]()
     var resultSearchController = UISearchController()
@@ -55,7 +35,7 @@ class AllGroupsController: UITableViewController, UISearchResultsUpdating {
         // Контроллер поиска групп.
         resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
+            controller.searchBar.delegate = self
             controller.searchBar.sizeToFit()
             
             tableView.tableHeaderView = controller.searchBar
@@ -117,5 +97,28 @@ class AllGroupsController: UITableViewController, UISearchResultsUpdating {
         cell.groupName.text = groupName
         
         return cell
+    }
+}
+
+extension AllGroupsController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // MARK: - Проблема с фильтрацией вывода только групп пользователя.
+        let vkService = VKService(userId, accessToken)
+        vkService.loadGroupsDataBySearch(search: searchBar.text!, completion: { searchGroups in
+            //Не работает contains...
+            //self.groups.removeAll(where: self.userGroups.contains(_:))
+            
+            let groupsWithoutUserGroups = searchGroups.filter( { (searchGroup) -> Bool in
+                for userGroup in self.userGroups  {
+                    if searchGroup == userGroup  {
+                        return false
+                    }
+                }
+                return true
+            })
+            self.groups = groupsWithoutUserGroups
+            self.tableView.reloadData()
+        })
+        
     }
 }

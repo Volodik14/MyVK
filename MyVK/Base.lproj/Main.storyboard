@@ -12,7 +12,7 @@
         <!--Login Form Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginFormController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginFormController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,7 @@
         <!--Друзья-->
         <scene sceneID="wk6-gL-EtJ">
             <objects>
-                <tableViewController id="idZ-Dz-xvP" customClass="FriendsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="idZ-Dz-xvP" customClass="FriendsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="HlM-xj-jqZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,7 +194,7 @@
         <!--Friend Photos Controller-->
         <scene sceneID="aBE-ss-Qg1">
             <objects>
-                <collectionViewController id="W8X-fs-5Sl" customClass="FriendPhotosController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController modalPresentationStyle="fullScreen" id="W8X-fs-5Sl" customClass="FriendPhotosController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="yHE-x3-DQQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,7 +243,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Nls-ld-0Uw">
             <objects>
-                <tabBarController id="b21-de-rdb" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="fullScreen" id="b21-de-rdb" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gJj-8k-vA9"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z6g-u4-UFc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -262,7 +262,7 @@
         <!--Users-->
         <scene sceneID="EV7-KH-crh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J9C-1E-C9D" userLabel="Users" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="J9C-1E-C9D" userLabel="Users" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.fill" catalog="system" selectedImage="person.fill" id="lwm-ru-zug" userLabel="Friends"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nqW-C7-vxt">
@@ -276,12 +276,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCQ-nL-SmS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028.985507246377" y="-417.1875"/>
+            <point key="canvasLocation" x="1030" y="-417"/>
         </scene>
         <!--Groups-->
         <scene sceneID="c76-zi-a3b">
             <objects>
-                <tableViewController id="dgM-bh-cTL" userLabel="Groups" customClass="UserGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="dgM-bh-cTL" userLabel="Groups" customClass="UserGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="p8I-cv-uiF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -343,7 +343,7 @@
         <!--Группы-->
         <scene sceneID="MyQ-mr-BDJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1VS-Jc-L82" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="1VS-Jc-L82" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" selectedImage="person.3.fill" id="8Vh-Me-0y6" userLabel="Groups"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cey-v8-ElS">
@@ -362,7 +362,7 @@
         <!--All Groups Controller-->
         <scene sceneID="fWa-bO-rpO">
             <objects>
-                <tableViewController id="8jJ-nO-y4f" customClass="AllGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="8jJ-nO-y4f" customClass="AllGroupsController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="DY3-39-MLg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

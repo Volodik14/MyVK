@@ -23,7 +23,7 @@ class VKService {
     }
     
     // Загрузка друзей пользовтеля.
-    func loadFriendsData() {
+    func loadFriendsData(completion: @escaping ([User]) -> Void) {
         // Параметры запроса.
         let friendsParameters = ["access_token": accessToken,
                                  "user_id": userId,
@@ -44,6 +44,7 @@ class VKService {
                 print("Error: download exception!")
             }
             self.saveUserData(friends)
+            completion(friends)
         }
     }
     
@@ -98,7 +99,7 @@ class VKService {
         }
     }
     
-    // Присоединение к группе.
+    // Присоединение к группе. Не работает из-за прав доступа.
     func joinGroup(groupId: String) {
         // Параметры запроса.
         let groupsParameters = ["access_token": accessToken,
@@ -106,10 +107,10 @@ class VKService {
                                 "v": "5.131"
         ]
         // Запрос к VK API.
-        let _ = AF.request(baseURL + "groups.join", method: .get, parameters: groupsParameters, encoding: URLEncoding.default)
+        let _ = AF.request(baseURL + "groups.join", method: .post, parameters: groupsParameters, encoding: URLEncoding.default)
     }
     
-    // Выход из группы.
+    // Выход из группы. Не работает из-за прав доступа.
     func leaveGroup(groupId: String) {
         // Параметры запроса.
         let groupsParameters = ["access_token": accessToken,
@@ -117,7 +118,7 @@ class VKService {
                                 "v": "5.131"
         ]
         // Запрос к VK API.
-        let _ = AF.request(baseURL + "groups.leave", method: .get, parameters: groupsParameters, encoding: URLEncoding.default)
+        let _ = AF.request(baseURL + "groups.leave", method: .post, parameters: groupsParameters, encoding: URLEncoding.default)
     }
     
     // Загрузка групп пользовтеля.
@@ -169,11 +170,12 @@ class VKService {
                 for index in 0..<json.count {
                     allGroups.append(Group(json: json[index]))
                 }
+                
             } catch {
                 print("Error: download exception!")
             }
-            
             completion(allGroups)
+            
         }
     }
     

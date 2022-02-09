@@ -50,36 +50,37 @@ class FriendsController: UITableViewController {
         
         let friends = realm.objects(User.self)
         self.friends = Array(friends)
+        print(self.friends.count)
         
         notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
-                    guard let tableView = self?.tableView else { return }
-                    switch changes {
-                    case .initial:
-                        tableView.reloadData()
-                    case .update(_, let deletions, let insertions, let modifications):
-                        tableView.beginUpdates()
-                        tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                             with: .automatic)
-                        tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                             with: .automatic)
-                        tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                             with: .automatic)
-                        tableView.endUpdates()
-                    case .error(let error):
-                        // An error occurred while opening the Realm file on the background worker thread
-                        fatalError("\(error)")
-                    }
-                }
-
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
+        }
+        
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
@@ -91,15 +92,14 @@ class FriendsController: UITableViewController {
         
         let friendName = friend.firstName + " " + friend.lastName
         cell.friendPhoto.image = nil
-        // Асинхронно задаём фото для строки.
         if let friendPhoto = friend.photo {
             let url = URL(string: friendPhoto.url)!
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        cell.friendPhoto.image = image
-                    }
+            // При асинхронном получении данных иногда выводятся не те картинки. Потому не обёрнуто в Dispatch.
+            if let data = try? Data(contentsOf: url) {
+                // Асинхронно задаём фото для строки.
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                    cell.friendPhoto.image = image
                 }
             }
         } else {
@@ -110,6 +110,6 @@ class FriendsController: UITableViewController {
         
         return cell
     }
-
-
+    
+    
 }

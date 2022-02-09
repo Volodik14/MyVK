@@ -32,10 +32,7 @@ class FriendPhotosController: UICollectionViewController {
     }
     
     
-    
-     // MARK: - Navigation
-    
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
