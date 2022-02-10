@@ -67,7 +67,6 @@ class FriendsController: UITableViewController {
                                      with: .automatic)
                 tableView.endUpdates()
             case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(error)")
             }
         }
@@ -75,10 +74,6 @@ class FriendsController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,24 +84,7 @@ class FriendsController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         
         let friend = friends[indexPath.row]
-        
-        let friendName = friend.firstName + " " + friend.lastName
-        cell.friendPhoto.image = nil
-        if let friendPhoto = friend.photo {
-            let url = URL(string: friendPhoto.url)!
-            // При асинхронном получении данных иногда выводятся не те картинки. Потому не обёрнуто в Dispatch.
-            if let data = try? Data(contentsOf: url) {
-                // Асинхронно задаём фото для строки.
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    cell.friendPhoto.image = image
-                }
-            }
-        } else {
-            cell.friendPhoto.image = UIImage(systemName: "circle")
-        }
-        
-        cell.friendName.text = friendName
+        cell.config(with: friend)
         
         return cell
     }

@@ -81,10 +81,7 @@ class UserGroupsController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userGroups.count
@@ -103,18 +100,7 @@ class UserGroupsController: UITableViewController {
         
         let group = userGroups[indexPath.row]
 
-        let groupName = group.name
-        
-        let url = URL(string: group.photo!.url)!
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    cell.groupImage.image = UIImage(data: data)
-                }
-            }
-        }
-
-        cell.groupName.text = groupName
+        cell.config(with: group)
          
         return cell
      }

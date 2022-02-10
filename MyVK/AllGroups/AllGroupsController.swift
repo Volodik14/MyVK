@@ -62,9 +62,6 @@ class AllGroupsController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count
@@ -75,26 +72,7 @@ class AllGroupsController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allGroupsCell", for: indexPath) as! AllGroupsCell
         
         let group = groups[indexPath.row]
-        
-        let groupName = group.name
-        let membersCount = group.countMembers
-        
-        // Асинхронно задаём фото для строки.
-        if let groupPhoto = group.photo {
-            let url = URL(string: groupPhoto.url)!
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        cell.groupImage.image = UIImage(data: data)
-                    }
-                }
-            }
-        } else {
-            cell.groupImage.image = UIImage(systemName: "circle")
-        }
-        
-        cell.groupSubsCount.text = membersCount + " участников"
-        cell.groupName.text = groupName
+        cell.config(with: group)
         
         return cell
     }

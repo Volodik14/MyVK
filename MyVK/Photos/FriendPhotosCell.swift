@@ -9,6 +9,16 @@ import UIKit
 
 class FriendPhotosCell: UICollectionViewCell {
     
-    @IBOutlet weak var friendPhoto: UIImageView!
+    @IBOutlet weak var friendPhoto: CachedImageView!
     
+    override func prepareForReuse() {
+        self.friendPhoto.image = nil
+    }
+    
+
+    func config (with photo: Photo) {
+        let photoUrl = photo.url
+        self.friendPhoto.imageUrl = photoUrl
+        self.friendPhoto.loadImage(from: self.friendPhoto.imageUrl)
+    }
 }

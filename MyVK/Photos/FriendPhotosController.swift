@@ -33,11 +33,7 @@ class FriendPhotosController: UICollectionViewController {
     
     
     // MARK: - UICollectionViewDataSource
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userPhotos.count
@@ -47,20 +43,7 @@ class FriendPhotosController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotosCell", for: indexPath) as! FriendPhotosCell
         
         let photo = userPhotos[indexPath.row]
-        
-        cell.friendPhoto.image = nil
-        let url = URL(string: photo.url)!
-        // Асинхронно задаём фото для строки.
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    cell.friendPhoto.image = image
-                }
-            } else {
-                cell.friendPhoto.image = UIImage(systemName: "circle")
-            }
-        }
+        cell.config(with: photo)
         
         return cell
     }

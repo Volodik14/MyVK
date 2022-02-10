@@ -23,7 +23,7 @@ class LoginFormController: UIViewController {
         self.view = webView
         webView.navigationDelegate = self
         //webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
-        if let url = URL(string: "https://oauth.vk.com/authorize?client_id=8068558&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,groups,photos&response_type=token&v=5.131") {
+        if let url = URL(string: "https://oauth.vk.com/authorize?client_id=8068558&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,groups,photos,wall&response_type=token&v=5.131") {
             let request = URLRequest(url: url)
             webView.load(request)
         }
