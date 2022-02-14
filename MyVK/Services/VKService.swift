@@ -179,6 +179,82 @@ class VKService {
         }
     }
     
+    func loadNewsfeed(completion: @escaping ([News]) -> Void) {
+        let newsfeedParameters = ["access_token": accessToken,
+                                   "count": "5",
+                                   "v": "5.131"
+        ]
+        var allNews = [News]()
+        // Добавление задачи в глобальную очередь.
+        DispatchQueue.global().async { [self] in
+            AF.request(baseURL + "newsfeed.get", method: .get, parameters: newsfeedParameters, encoding: URLEncoding.default).responseData { (response) in
+                do {
+                    let data = try response.result.get()
+                    let json = try JSON(data: data)["response"]["items"]
+                    
+                    print(json[0])
+                    
+                    
+                    //print(json[0]["attachments"][0]["photo"]["sizes"].arrayValue.last?["url"].stringValue)
+                    for index in 0..<json.count {
+                        let namePhoto = getNamePhotoById(id: json[index]["source_id"].intValue)
+                        allNews.append(News(json: json[index], name: namePhoto.name, photoURL: namePhoto.photoURL))
+                    }
+                    
+                } catch {
+                    print("Error: download exception!")
+                }
+                completion(allNews)
+                
+            }
+        }
+        
+    }
+    
+    func getNamePhotoById(id: Int) -> (name: String, photoURL: String) {
+        var result = ("", "")
+        
+        if id > 0 {
+            let parameters = ["access_token": accessToken,
+                                       "user_ids": String(id),
+                              "fields": "photo_200_orig",
+                                       "v": "5.131"
+            ]
+            DispatchQueue.global().async { [self] in
+                AF.request(baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
+                    do {
+                        let data = try response.result.get()
+                        let json = try JSON(data: data)["response"][0]
+                        result = (json["first_name"].stringValue + json["last_name"].stringValue, json["photo_200_orig"].stringValue)
+                        print(json)
+                    } catch {
+                        print("Error: download exception!")
+                    }
+                    
+                }
+            }
+        } else {
+            let parameters = ["access_token": accessToken,
+                                       "group_id": String(id),
+                                       "v": "5.131"
+            ]
+            DispatchQueue.global().async { [self] in
+                AF.request(baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
+                    do {
+                        let data = try response.result.get()
+                        let json = try JSON(data: data)["response"][0]
+                        result = (json["name"].stringValue, json["photo_200"].stringValue)
+                        print(json)
+                    } catch {
+                        print("Error: download exception!")
+                    }
+                    
+                }
+            }
+        }
+        return result
+    }
+    
     // Сохранение друзей в БД.
     func saveUserData(_ data: [User]) {
         do {

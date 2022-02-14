@@ -11,7 +11,7 @@ private let reuseIdentifier = "Cell"
 
 class FriendPhotosController: UICollectionViewController {
     
-    var userPhotos = [Photo]()
+    private var userPhotos = [Photo]()
     var userId = ""
     
     override func viewDidLoad() {

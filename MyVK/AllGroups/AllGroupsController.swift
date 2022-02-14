@@ -9,11 +9,11 @@ import UIKit
 import RealmSwift
 
 class AllGroupsController: UITableViewController {
-    var userId = ""
-    var accessToken = ""
+    private var userId = ""
+    private var accessToken = ""
     
     var groups = [Group]()
-    var resultSearchController = UISearchController()
+    private var resultSearchController = UISearchController()
     
     var userGroups = [Group]()
     

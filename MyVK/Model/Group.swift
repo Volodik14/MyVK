@@ -29,5 +29,15 @@ class Group: Object {
     
     override static func primaryKey() -> String? {
         return "id"
-      }
+    }
+    
+    var toAnyObject: Any {
+            return [
+                "name": name,
+                "id": id,
+                "countMembers": countMembers,
+                "photo": photo?.toAnyObject
+            ]
+        }
+
 }

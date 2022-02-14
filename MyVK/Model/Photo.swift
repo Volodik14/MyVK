@@ -28,4 +28,12 @@ class Photo: Object {
         self.height = 200
     }
     
+    var toAnyObject: Any {
+            return [
+                "height": height,
+                "witdh": width,
+                "url": url
+            ]
+        }
+
 }

@@ -8,6 +8,8 @@ target 'MyVK' do
   pod 'Alamofire', '~> 5.5'
   pod 'SwiftyJSON'
   pod 'RealmSwift'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
   # Pods for MyVK
 

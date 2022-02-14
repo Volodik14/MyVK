@@ -7,11 +7,12 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class UserGroupsController: UITableViewController {
-    var userGroups = [Group]()
-    var accessToken = ""
-    var userId = ""
+    private var userGroups = [Group]()
+    private var accessToken = ""
+    private var userId = ""
     
     @IBAction func addGroup(unwindSegue: UIStoryboardSegue) {
         // Проверяем идентификатор перехода, чтобы убедится, что это нужный переход.
@@ -25,6 +26,10 @@ class UserGroupsController: UITableViewController {
                 let group = allGroupsController.groups[indexPath.row]
                 // Добавляем группу в список выбранных городов
                 userGroups.append(group)
+                // Добавление группы в базу данных.
+                let dbLink = Database.database(url: "https://myvk-8a5de-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+                dbLink.child(userId).setValue(group.toAnyObject)
+
                 // Вступаем в группу.
                 //let vkService = VKService(userId, accessToken)
                 //vkService.joinGroup(groupId: group.id)
@@ -96,7 +101,7 @@ class UserGroupsController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "userGroupsCell", for: indexPath) as! UserGroupCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userGroupsCell", for: indexPath) as! UserGroupCell
         
         let group = userGroups[indexPath.row]
 

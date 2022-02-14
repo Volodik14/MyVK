@@ -15,7 +15,7 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var loginInput: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    let webView = WKWebView()
+    private let webView = WKWebView()
     
     
     // Отображаем WebView со входом.
@@ -28,7 +28,7 @@ class LoginFormController: UIViewController {
             webView.load(request)
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class LoginFormController: UIViewController {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         // присваиваем его UIScrollVIew
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
-
+        
     }
     
     // Осталось из начала туториала...
@@ -104,7 +104,7 @@ extension LoginFormController: WKNavigationDelegate {
                         }
                     }
                 }
-                
+                // Загрузка данных.
                 UserDefaults.standard.set(userId, forKey: "userId")
                 let vkService = VKService(userId!, accessToken!)
                 
@@ -117,6 +117,8 @@ extension LoginFormController: WKNavigationDelegate {
                     print(accessToken ?? "")
                     print(userId ?? "")
                 })
+                
+                
                 
             }
             
