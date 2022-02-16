@@ -18,6 +18,8 @@ class News {
     var repostsCount = ""
     var postText = ""
     var postImageURL = ""
+    var postImageHeight = 0
+    var postImageWidth = 0
     
     init(json: JSON, name: String, photoURL: String) {
         self.id = json["post_id"].stringValue
@@ -27,6 +29,8 @@ class News {
         self.repostsCount = jsonToStringParameter(json: json["reposts"]["count"])
         self.postText = json["text"].stringValue
         self.postImageURL = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["url"].stringValue ?? ""
+        self.postImageHeight = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["height"].intValue ?? 0
+        self.postImageWidth = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["width"].intValue ?? 0
         self.authorName = name
         self.authorImageURL = photoURL
     }

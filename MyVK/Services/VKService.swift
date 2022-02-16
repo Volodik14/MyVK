@@ -10,9 +10,15 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+fileprivate enum Config {
+    static let baseURL = "https://api.vk.com/method/"
+    //static let baseHeaders = ["access_token": accessToken, "v": "5.131"]
+}
+
 class VKService {
     let userId: String
     let accessToken: String
+    
     // Основная строка запроса.
     let baseURL = "https://api.vk.com/method/"
     
@@ -192,27 +198,33 @@ class VKService {
                     let data = try response.result.get()
                     let json = try JSON(data: data)["response"]["items"]
                     
-                    print(json[0])
+                    let queue = DispatchQueue(label: "GetNews")
+                    let group = DispatchGroup()
+                        for index in 0..<json.count {
+                            queue.async(group: group) {
+                                getNamePhotoById(id: json[index]["source_id"].intValue, completion: {namePhoto in
+                                    print(namePhoto)
+                                    allNews.append(News(json: json[index], name: namePhoto.name, photoURL: namePhoto.photo))
+                                    if allNews.count == 5 {
+                                        completion(allNews)
+                                    }
+                                    
+                                })
+                            }
+                        }
                     
-                    
-                    //print(json[0]["attachments"][0]["photo"]["sizes"].arrayValue.last?["url"].stringValue)
-                    for index in 0..<json.count {
-                        let namePhoto = getNamePhotoById(id: json[index]["source_id"].intValue)
-                        allNews.append(News(json: json[index], name: namePhoto.name, photoURL: namePhoto.photoURL))
-                    }
                     
                 } catch {
                     print("Error: download exception!")
                 }
-                completion(allNews)
+                
                 
             }
         }
         
     }
     
-    func getNamePhotoById(id: Int) -> (name: String, photoURL: String) {
-        var result = ("", "")
+    func getNamePhotoById(id: Int, completion: @escaping ((name: String, photo: String)) -> Void) {
         
         if id > 0 {
             let parameters = ["access_token": accessToken,
@@ -220,39 +232,79 @@ class VKService {
                               "fields": "photo_200_orig",
                                        "v": "5.131"
             ]
-            DispatchQueue.global().async { [self] in
-                AF.request(baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
+                AF.request(self.baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
                     do {
                         let data = try response.result.get()
                         let json = try JSON(data: data)["response"][0]
-                        result = (json["first_name"].stringValue + json["last_name"].stringValue, json["photo_200_orig"].stringValue)
-                        print(json)
+                        //print(json)
+                        let name = json["first_name"].stringValue + json["last_name"].stringValue
+                        let photo = json["photo_200"].stringValue
+                        completion((name, photo))
                     } catch {
                         print("Error: download exception!")
                     }
                     
                 }
-            }
         } else {
             let parameters = ["access_token": accessToken,
-                                       "group_id": String(id),
+                              "group_id": String(id * (-1)),
                                        "v": "5.131"
             ]
-            DispatchQueue.global().async { [self] in
                 AF.request(baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
                     do {
                         let data = try response.result.get()
                         let json = try JSON(data: data)["response"][0]
-                        result = (json["name"].stringValue, json["photo_200"].stringValue)
-                        print(json)
+                        //print(json)
+                        let name = json["name"].stringValue
+                        let photo = json["photo_200"].stringValue
+                        completion((name, photo))
                     } catch {
                         print("Error: download exception!")
                     }
                     
                 }
+        }
+    }
+    
+    func getNamePhotoGroup(id: String, completion: @escaping ((name: String, photo: String)) -> Void) {
+        let parameters = ["access_token": accessToken,
+                                   "group_id": String(id),
+                                   "v": "5.131"
+        ]
+        DispatchQueue.global().async { [self] in
+            AF.request(baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
+                do {
+                    let data = try response.result.get()
+                    let json = try JSON(data: data)["response"][0]
+                    completion((json["name"].stringValue, json["photo_200"].stringValue))
+                } catch {
+                    print("Error: download exception!")
+                }
+                
             }
         }
-        return result
+    }
+    
+    func getNamePhotoUser(id: String, completion: @escaping ((name: String, photo: String)) -> Void) {
+        let parameters = ["access_token": accessToken,
+                                   "user_ids": String(id),
+                          "fields": "photo_200_orig",
+                                   "v": "5.131"
+        ]
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            AF.request(self.baseURL + "groups.getById", method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { (response) in
+                do {
+                    let data = try response.result.get()
+                    let json = try JSON(data: data)["response"][0]
+                    completion((json["first_name"].stringValue + json["last_name"].stringValue, json["photo_200_orig"].stringValue))
+                    print(json)
+                } catch {
+                    print("Error: download exception!")
+                }
+                
+            }
+        }
     }
     
     // Сохранение друзей в БД.
