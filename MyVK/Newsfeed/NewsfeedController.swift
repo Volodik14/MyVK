@@ -13,6 +13,7 @@ class NewsfeedController: UITableViewController {
     private var accessToken = ""
     private var news = [News]()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
@@ -63,7 +64,15 @@ extension NewsfeedController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position > (tableView.contentSize.height-100-scrollView.frame.size.height) {
-            print("kek")
+            guard !VKService.isPaginating else {
+                return
+            }
+            let vkService = VKService(userId, accessToken)
+            
+            vkService.loadNewsfeed(completion: {news in
+                self.news.append(contentsOf: news)
+                self.tableView.reloadData()
+            })
         }
     }
 }

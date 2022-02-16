@@ -28,14 +28,21 @@ class News {
         self.commentsCount = jsonToStringParameter(json: json["comments"]["count"])
         self.repostsCount = jsonToStringParameter(json: json["reposts"]["count"])
         self.postText = json["text"].stringValue
-        self.postImageURL = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["url"].stringValue ?? ""
-        self.postImageHeight = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["height"].intValue ?? 0
-        self.postImageWidth = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["width"].intValue ?? 0
+        if json["attachments"][0]["type"] == "video" {
+            self.postImageURL = json["attachments"][0]["image"].arrayValue.last?["url"].stringValue ?? ""
+            self.postImageHeight = json["attachments"][0]["image"].arrayValue.last?["height"].intValue ?? 0
+            self.postImageWidth = json["attachments"][0]["image"].arrayValue.last?["width"].intValue ?? 0
+        } else {
+            self.postImageURL = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["url"].stringValue ?? ""
+            self.postImageHeight = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["height"].intValue ?? 0
+            self.postImageWidth = json["attachments"][0]["photo"]["sizes"].arrayValue.last?["width"].intValue ?? 0
+        }
         self.authorName = name
         self.authorImageURL = photoURL
     }
     
     private func jsonToStringParameter(json: JSON) -> String {
-        return json.intValue > 0 ? json.stringValue : ""
+        //return json.intValue > 0 ? json.stringValue : ""
+        return json.stringValue
     }
 }

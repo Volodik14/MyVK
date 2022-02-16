@@ -20,10 +20,12 @@ class NewsfeedCodeCell: UITableViewCell {
     private let authorName = UILabel()
     private let avatarImage = CachedImageView()
     
+    private let insets: CGFloat = 5.0
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //selectionStyle = .none
+        selectionStyle = .none
         setViews()
     }
     
@@ -31,11 +33,11 @@ class NewsfeedCodeCell: UITableViewCell {
         setAuthorImage()
         setAuthorName()
         setViewsLabel()
+        setLikesLabel()
         setRepostsLabel()
         setCommentsLabel()
-        setLikesLabel()
         setPostTextView()
-        setPostImageView()
+        //setPostImageView()
     }
     
     private func setAuthorImage() {
@@ -62,13 +64,19 @@ class NewsfeedCodeCell: UITableViewCell {
         viewsLabel.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 6).isActive = true
     }
     
+    private func setLikesLabel() {
+        contentView.addSubview(likesLabel)
+        likesLabel.translatesAutoresizingMaskIntoConstraints = false
+        likesLabel.leftAnchor.constraint(equalTo: viewsLabel.rightAnchor, constant: 5).isActive = true
+        likesLabel.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 6).isActive = true
+    }
+    
     private func setRepostsLabel() {
         contentView.addSubview(repostsLabel)
         repostsLabel.translatesAutoresizingMaskIntoConstraints = false
-        repostsLabel.leftAnchor.constraint(equalTo: viewsLabel.rightAnchor, constant: 5).isActive = true
+        repostsLabel.leftAnchor.constraint(equalTo: likesLabel.rightAnchor, constant: 5).isActive = true
         repostsLabel.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 6).isActive = true
     }
-    
     
     private func setCommentsLabel() {
         contentView.addSubview(commentsLabel)
@@ -77,15 +85,9 @@ class NewsfeedCodeCell: UITableViewCell {
         commentsLabel.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 6).isActive = true
     }
     
-    private func setLikesLabel() {
-        contentView.addSubview(repostsLabel)
-        repostsLabel.translatesAutoresizingMaskIntoConstraints = false
-        repostsLabel.leftAnchor.constraint(equalTo: commentsLabel.rightAnchor, constant: 5).isActive = true
-        repostsLabel.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 6).isActive = true
-    }
-    
     private func setPostTextView() {
         contentView.addSubview(postTextView)
+        postTextView.isEditable = false
         postTextView.translatesAutoresizingMaskIntoConstraints = false
         postTextView.topAnchor.constraint(equalTo: avatarImage.bottomAnchor).isActive = true
         postTextView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
@@ -100,9 +102,16 @@ class NewsfeedCodeCell: UITableViewCell {
         postImage.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         postImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         postImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        postImage.contentMode = .bottomLeft
+        postImage.contentMode = .scaleToFill
         //postImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
     }
+    
+    
+    private func setLabel(label: UILabel, text: String) {
+        label.text = text
+        label.widthAnchor.constraint(equalToConstant: label.intrinsicContentSize.width).isActive = true
+    }
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -114,18 +123,30 @@ class NewsfeedCodeCell: UITableViewCell {
     }
     
     func config (with news: News) {
-        //if news.postImageURL == "" {
-        //    postImage.removeFromSuperview()
-        //} else {
+        if news.postImageURL == "" {
+            //postImage.isHidden = true
+            postTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        } else {
+            setPostImageView()
             self.postImage.loadImage(from: news.postImageURL)
-        //}
+        }
         self.postImage.heightAnchor.constraint(equalToConstant: CGFloat(news.postImageHeight)).isActive = true
         
         self.avatarImage.loadImage(from: news.authorImageURL)
-        self.viewsLabel.text = news.viewsCount
+        
+        if news.postText == "" {
+            postTextView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        } else {
+            self.postTextView.text = news.postText
+        }
         self.postTextView.text = news.postText
-        self.repostsLabel.text = news.repostsCount
-        self.commentsLabel.text = news.commentsCount
+        // Почему-то не работает.
+        //let heightText = min(postTextView.intrinsicContentSize.height, 80)
+        //self.postTextView.heightAnchor.constraint(equalToConstant: heightText).isActive = true
+        setLabel(label: self.viewsLabel, text: news.viewsCount)
+        setLabel(label: self.likesLabel, text: news.likesCount)
+        setLabel(label: self.repostsLabel, text: news.repostsCount)
+        setLabel(label: self.commentsLabel, text: news.commentsCount)
         self.likesLabel.text = news.likesCount
         self.authorName.text = news.authorName
     }
