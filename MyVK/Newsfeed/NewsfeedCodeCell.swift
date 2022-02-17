@@ -11,6 +11,8 @@ class NewsfeedCodeCell: UITableViewCell {
     
     static let reuseId = String(describing: self)
     
+    private var height = CGFloat(62)
+    
     private let postImage = CachedImageView()
     private let postTextView = UITextView()
     private let viewsLabel = UILabel()
@@ -22,7 +24,6 @@ class NewsfeedCodeCell: UITableViewCell {
     private let repostsImageView = UIImageView()
     private let commentsImageView = UIImageView()
     private let likesImageView = UIImageView()
-    
     private let avatarImage = CachedImageView()
     
     private let insets: CGFloat = 5.0
@@ -33,6 +34,10 @@ class NewsfeedCodeCell: UITableViewCell {
         selectionStyle = .none
         setViews()
     }
+    
+    private lazy var postTextViewHeight: NSLayoutConstraint = {
+        return postTextView.heightAnchor.constraint(equalToConstant: 50)
+    }()
     
     private func setViews() {
         setAuthorImage()
@@ -51,6 +56,7 @@ class NewsfeedCodeCell: UITableViewCell {
     
     private func setAuthorImage() {
         contentView.addSubview(avatarImage)
+        avatarImage.contentMode = .scaleAspectFit
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         avatarImage.backgroundColor = .red
         avatarImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
@@ -63,6 +69,7 @@ class NewsfeedCodeCell: UITableViewCell {
         contentView.addSubview(authorName)
         authorName.translatesAutoresizingMaskIntoConstraints = false
         authorName.leftAnchor.constraint(equalTo: avatarImage.rightAnchor, constant: 5).isActive = true
+        authorName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -12).isActive = true
         authorName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
     }
     
@@ -121,7 +128,7 @@ class NewsfeedCodeCell: UITableViewCell {
     private func setRepostsImage() {
         contentView.addSubview(repostsImageView)
         repostsImageView.translatesAutoresizingMaskIntoConstraints = false
-        repostsImageView.image = UIImage(named: "comment")
+        repostsImageView.image = UIImage(named: "repost")
         repostsImageView.leftAnchor.constraint(equalTo: likesLabel.rightAnchor, constant: 5).isActive = true
         repostsImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         repostsImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
@@ -138,11 +145,12 @@ class NewsfeedCodeCell: UITableViewCell {
     private func setPostTextView() {
         contentView.addSubview(postTextView)
         postTextView.isEditable = false
+        postTextView.isScrollEnabled = true
         postTextView.translatesAutoresizingMaskIntoConstraints = false
         postTextView.topAnchor.constraint(equalTo: avatarImage.bottomAnchor).isActive = true
         postTextView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         postTextView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        postTextView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        postTextViewHeight.isActive = true
     }
     
     private func setPostImageView(news: News) {
@@ -152,8 +160,9 @@ class NewsfeedCodeCell: UITableViewCell {
         postImage.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         postImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         postImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        postImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -20).isActive = true
-        let aspectRatio = CGFloat(news.postImageHeight / news.postImageWidth)
+        postImage.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        postImage.contentMode = .scaleToFill
+        let aspectRatio = CGFloat(news.postImageHeight) / CGFloat(news.postImageWidth)
         postImage.heightAnchor.constraint(equalTo: postImage.widthAnchor, multiplier: aspectRatio).isActive = true
         postImage.loadImage(from: news.postImageURL)
         //postImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
@@ -175,24 +184,52 @@ class NewsfeedCodeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        postImage.image = nil
+        postImage.removeFromSuperview()
+        postTextView.removeFromSuperview()
+        //postTextView.text = nil
+        //viewsLabel.text = nil
+        //repostsLabel.text = nil
+        //commentsLabel.text = nil
+        //likesLabel.text = nil
+        //authorName.text = nil
+        //viewsImageView.image = nil
+        //repostsImageView.image = nil
+        //commentsImageView.image = nil
+        //likesImageView.image = nil
+        avatarImage.image = nil
+    }
+    
     func config (with news: News) {
+        setPostTextView()
+        if news.postText == "" {
+            postTextViewHeight.constant = 0
+        } else {
+            self.postTextView.text = news.postText
+            postTextViewHeight.constant = 50
+        }
+        
         if news.postImageURL == "" {
             //postImage.isHidden = true
             postTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         } else {
             setPostImageView(news: news)
-            
             //self.postImage.heightAnchor.constraint(equalToConstant: CGFloat(news.postImageHeight)).isActive = true
         }
+        
+        height += CGFloat(news.postImageHeight) + postTextViewHeight.constant
+        //let constraint = contentView.heightAnchor.constraint(equalToConstant: height)
+        //constraint.priority = UILayoutPriority(rawValue: 999)
+        //constraint.isActive = true
         
         
         self.avatarImage.loadImage(from: news.authorImageURL)
         
-        if news.postText == "" {
-            postTextView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-        } else {
-            self.postTextView.text = news.postText
-        }
+        
         self.authorName.text = news.authorName
         // Почему-то не работает.
         //let heightText = min(postTextView.intrinsicContentSize.height, 80)

@@ -16,6 +16,8 @@ class NewsfeedController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
         
         if let userId = UserDefaults.standard.string(forKey: "userId") {
@@ -48,6 +50,10 @@ class NewsfeedController: UITableViewController {
         return cell
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+    }
 
 
 }

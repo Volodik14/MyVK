@@ -73,6 +73,7 @@ class FriendsController: UITableViewController {
         
     }
     
+    
     // MARK: - Table view data source
     
     
@@ -87,6 +88,10 @@ class FriendsController: UITableViewController {
         cell.config(with: friend)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54
     }
     
     
