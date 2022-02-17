@@ -21,7 +21,7 @@ class VKService {
     
     public static var isPaginating = false
     
-    private var lastId = ""
+    private static var lastId = ""
     
     init(_ userId: String, _ accessToken: String) {
         self.userId = userId
@@ -32,7 +32,7 @@ class VKService {
     func loadFriendsData(completion: @escaping ([User]) -> Void) {
         // Параметры запроса.
         let friendsParameters = ["user_id": userId,
-                                 "fields": "nickname, photo_200_orig",
+                                 "fields": "nickname, photo_100",
         ].merging(baseHeaders, uniquingKeysWith: { (first, _) in first })
         
         var friends = [User]()
@@ -146,6 +146,7 @@ class VKService {
         
     }
     
+    // Запрос на загрузку групп по поисковому запросу.
     func loadGroupsDataBySearch(search: String = "Группа", completion: @escaping ([Group]) -> Void) {
         // Параметры запроса.
         let allGroupsParameters = ["count": "50",
@@ -171,39 +172,73 @@ class VKService {
         }
     }
     
+    // Загрузка ленты новостей.
     func loadNewsfeed(completion: @escaping ([News]) -> Void) {
         let addedParameters: [String: String]
-        if lastId != "" {
-            addedParameters = ["start_from": lastId]
+        if VKService.lastId != "" {
+            addedParameters = ["start_from": VKService.lastId]
             VKService.isPaginating = true
         } else {
             addedParameters = [:]
         }
-        let newsfeedParameters = ["count": "26",
+        let newsfeedParameters = ["count": "20",
                                   "filters": "post"
         ].merging(baseHeaders, uniquingKeysWith: { (first, _) in first }).merging(addedParameters, uniquingKeysWith: { (first, _) in first })
         var allNews = [News]()
         // Добавление задачи в глобальную очередь.
         DispatchQueue.global().async { [self] in
+            // Запрос к VK API.
             AF.request(baseURL + "newsfeed.get", method: .get, parameters: newsfeedParameters, encoding: URLEncoding.default).responseData { (response) in
                 do {
                     let data = try response.result.get()
                     let json = try JSON(data: data)["response"]["items"]
-                    let queue = DispatchQueue(label: "GetNews")
-                    let group = DispatchGroup()
-                        for index in 0..<json.count-1 {
-                            queue.async(group: group) {
-                                getNamePhotoById(id: json[index]["source_id"].intValue, completion: {namePhoto in
-                                    allNews.append(News(json: json[index], name: namePhoto.name, photoURL: namePhoto.photo))
-                                    print(json[index])
-                                    if allNews.count == 25 {
-                                        VKService.isPaginating = false
-                                        completion(allNews)
-                                        lastId = json[25]["post_id"].stringValue
-                                    }
-                                })
+                    let jsonGroups = try JSON(data: data)["response"]["groups"]
+                    let jsonProfiles = try JSON(data: data)["response"]["profiles"]
+                    // Получаем группы-источники.
+                    var groups = [Group]()
+                    for index in 0..<jsonGroups.count {
+                        groups.append(Group(json: jsonGroups[index]))
+                    }
+                    // Получаем пользователей-источников.
+                    var users = [User]()
+                    for index in 0..<jsonProfiles.count {
+                        users.append(User(json: jsonProfiles[index]))
+                    }
+                    VKService.lastId = try JSON(data: data)["response"]["next_from"].stringValue
+                    // Проход по всем загруженным группам и пользователям для поиска источника новости.
+                    for index in 0..<json.count {
+                        var userId = 0
+                        var groupId = 0
+                        let id = json[index]["source_id"].intValue
+                        var name = "Name"
+                        var photoURL = ""
+                        if id > 0 {
+                            let stringId = String(id)
+                            while userId < users.count {
+                                if users[userId].id != stringId {
+                                    userId += 1
+                                } else {
+                                    name = users[userId].firstName + users[groupId].lastName
+                                    photoURL = users[userId].photo?.url ?? ""
+                                    break
+                                }
+                            }
+                        } else {
+                            let stringId = String(id * (-1))
+                            while groupId < groups.count {
+                                if groups[groupId].id != stringId {
+                                    groupId += 1
+                                } else {
+                                    name = groups[groupId].name
+                                    photoURL = groups[groupId].photo?.url ?? ""
+                                    break
+                                }
                             }
                         }
+                        allNews.append(News(json: json[index], name: name, photoURL: photoURL))
+                    }
+                    VKService.isPaginating = false
+                    completion(allNews)
                     
                     
                 } catch {
@@ -216,7 +251,7 @@ class VKService {
     }
     
     
-    
+    // Deprecated.
     func getNamePhotoById(id: Int, completion: @escaping ((name: String, photo: String)) -> Void) {
         
         if id > 0 {
@@ -255,6 +290,7 @@ class VKService {
         }
     }
     
+    // Deprecated.
     func getNamePhotoGroup(id: String, completion: @escaping ((name: String, photo: String)) -> Void) {
         let parameters = ["group_id": String(id),
         ].merging(baseHeaders, uniquingKeysWith: { (first, _) in first })
@@ -272,6 +308,7 @@ class VKService {
         }
     }
     
+    // Deprecated.
     func getNamePhotoUser(id: String, completion: @escaping ((name: String, photo: String)) -> Void) {
         let parameters = ["user_ids": String(id),
                           "fields": "photo_200_orig",

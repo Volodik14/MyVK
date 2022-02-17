@@ -28,7 +28,7 @@ class User: Object {
         self.id = json["id"].stringValue
         self.firstName = json["first_name"].stringValue
         self.lastName = json["last_name"].stringValue
-        self.photo = Photo(url: json["photo_200_orig"].stringValue)
+        self.photo = Photo(url: json["photo_100"].stringValue)
     }
     
     override static func primaryKey() -> String? {

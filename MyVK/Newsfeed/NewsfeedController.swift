@@ -28,11 +28,6 @@ class NewsfeedController: UITableViewController {
         } else {
             print("Cannot get data, cannot get user id!")
         }
-        let vkService = VKService(userId, accessToken)
-        vkService.loadNewsfeed(completion: {news in
-            self.news = news
-            self.tableView.reloadData()
-        })
     }
 
     // MARK: - Table view data source
@@ -47,9 +42,6 @@ class NewsfeedController: UITableViewController {
         
         let news = news[indexPath.row]
         
-        print(indexPath.row)
-        print(news.postText)
-        print(news.postImageURL)
 
         cell.config(with: news)
         

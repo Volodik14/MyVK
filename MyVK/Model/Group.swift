@@ -20,7 +20,7 @@ class Group: Object {
         self.id = json["id"].stringValue
         self.countMembers = json["members_count"].stringValue
         self.name = json["name"].stringValue
-        self.photo = Photo(url: json["photo_200"].stringValue)
+        self.photo = Photo(url: json["photo_100"].stringValue)
     }
     
     static func == (lhs: Group, rhs: Group) -> Bool {
