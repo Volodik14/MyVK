@@ -9,9 +9,45 @@ import UIKit
 
 class NewsfeedCodeCell: UITableViewCell {
     
+    
+    private class imageCountStackView: UIStackView {
+        private let image = UIImageView()
+        private let likesLabel = UILabel()
+        
+        init(imageName: String) {
+            super.init(frame: .zero)
+            self.axis  = .horizontal
+            self.distribution = .fill
+            self.alignment = .center
+            self.spacing = 5
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.image.translatesAutoresizingMaskIntoConstraints = false
+            self.image.image = UIImage(named: imageName)
+            self.image.widthAnchor.constraint(equalToConstant: 15).isActive = true
+            self.image.heightAnchor.constraint(equalToConstant: 15).isActive = true
+            self.addArrangedSubview(image)
+            self.addArrangedSubview(likesLabel)
+        }
+        
+        required init(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func config(text: String) {
+            likesLabel.text = text
+        }
+        
+    }
+    
     static let reuseId = String(describing: self)
     
     private var height = CGFloat(62)
+    
+    private let viewsStackView = imageCountStackView(imageName: "view")
+    private let likesStackView = imageCountStackView(imageName: "love")
+    private let repostsStackView = imageCountStackView(imageName: "repost")
+    private let commentsStackView = imageCountStackView(imageName: "comment")
+    private let countersStackView = UIStackView()
     
     private let postImage = CachedImageView()
     private let postTextView = UITextView()
@@ -42,17 +78,67 @@ class NewsfeedCodeCell: UITableViewCell {
     private func setViews() {
         setAuthorImage()
         setAuthorName()
-        setViewsImage()
-        setViewsLabel()
-        setLikesImage()
-        setLikesLabel()
-        setRepostsImage()
-        setRepostsLabel()
-        setCommentsImage()
-        setCommentsLabel()
+        //setViewsStackView()
+        //setLikesStackView()
+        //setRepostsStackView()
+        //setCommentsStackView()
+        setCountersStackView()
+        //setViewsImage()
+        //setViewsLabel()
+        //setLikesImage()
+        //setLikesLabel()
+        //setRepostsImage()
+        //setRepostsLabel()
+        //setCommentsImage()
+        //setCommentsLabel()
         setPostTextView()
         //setPostImageView()
     }
+    
+    private func setCountersStackView() {
+        contentView.addSubview(countersStackView)
+        countersStackView.axis  = .horizontal
+        countersStackView.distribution = .fill
+        countersStackView.alignment = .center
+        countersStackView.spacing = 5
+        countersStackView.translatesAutoresizingMaskIntoConstraints = false
+        countersStackView.addArrangedSubview(viewsStackView)
+        countersStackView.addArrangedSubview(likesStackView)
+        countersStackView.addArrangedSubview(repostsStackView)
+        countersStackView.addArrangedSubview(commentsStackView)
+        countersStackView.leftAnchor.constraint(equalTo: avatarImage.rightAnchor, constant: 5).isActive = true
+        countersStackView.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 7).isActive = true
+    }
+    
+    private func setViewsStackView() {
+        contentView.addSubview(viewsStackView)
+        viewsStackView.translatesAutoresizingMaskIntoConstraints = false
+        viewsStackView.leftAnchor.constraint(equalTo: avatarImage.rightAnchor, constant: 5).isActive = true
+        viewsStackView.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 7).isActive = true
+    }
+    
+    private func setLikesStackView() {
+        contentView.addSubview(likesStackView)
+        likesStackView.translatesAutoresizingMaskIntoConstraints = false
+        likesStackView.leftAnchor.constraint(equalTo: viewsStackView.rightAnchor, constant: 5).isActive = true
+        likesStackView.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 7).isActive = true
+    }
+    
+    private func setRepostsStackView() {
+        contentView.addSubview(repostsStackView)
+        repostsStackView.translatesAutoresizingMaskIntoConstraints = false
+        repostsStackView.leftAnchor.constraint(equalTo: likesStackView.rightAnchor, constant: 5).isActive = true
+        repostsStackView.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 7).isActive = true
+    }
+    
+    private func setCommentsStackView() {
+        contentView.addSubview(commentsStackView)
+        commentsStackView.translatesAutoresizingMaskIntoConstraints = false
+        commentsStackView.leftAnchor.constraint(equalTo: repostsStackView.rightAnchor, constant: 5).isActive = true
+        commentsStackView.topAnchor.constraint(equalTo: authorName.bottomAnchor, constant: 7).isActive = true
+    }
+    
+    
     
     private func setAuthorImage() {
         contentView.addSubview(avatarImage)
@@ -234,10 +320,14 @@ class NewsfeedCodeCell: UITableViewCell {
         // Почему-то не работает.
         //let heightText = min(postTextView.intrinsicContentSize.height, 80)
         //self.postTextView.heightAnchor.constraint(equalToConstant: heightText).isActive = true
-        setLabel(label: self.viewsLabel, text: news.viewsCount)
-        setLabel(label: self.likesLabel, text: news.likesCount)
-        setLabel(label: self.repostsLabel, text: news.repostsCount)
-        setLabel(label: self.commentsLabel, text: news.commentsCount)
+        viewsStackView.config(text: news.viewsCount)
+        likesStackView.config(text: news.likesCount)
+        repostsStackView.config(text: news.repostsCount)
+        commentsStackView.config(text: news.commentsCount)
+        //setLabel(label: self.viewsLabel, text: news.viewsCount)
+        //setLabel(label: self.likesLabel, text: news.likesCount)
+        //setLabel(label: self.repostsLabel, text: news.repostsCount)
+        //setLabel(label: self.commentsLabel, text: news.commentsCount)
         
     }
 
