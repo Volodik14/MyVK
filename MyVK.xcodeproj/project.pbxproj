@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AA6BCD0503511DEF2BA04DE /* FriendsModuleViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B38D6751E50AFF2FAEE74B /* FriendsModuleViewOutput.swift */; };
+		0AFFF940BD4AEBDDF43DE55D /* FriendsModuleViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078942723A9C0FA8D76A432 /* FriendsModuleViewInput.swift */; };
+		108D7B707DEF7677C00015D6 /* FriendsModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5334A6AFD1EBFE4DA64268 /* FriendsModulePresenter.swift */; };
+		19115165C4346B3CB66DC545 /* FriendsModuleModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2310CED4BB1DFF7680553986 /* FriendsModuleModule.swift */; };
+		1A70A426008EA40242C2AB1F /* FriendsModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798ED2C8448B06680CB6FF2 /* FriendsModuleRouter.swift */; };
+		293477409C3CA4B15E4204F9 /* FriendsModuleInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBAF80FDF88952159B2A917 /* FriendsModuleInteractorOutput.swift */; };
+		2ADD9B2AAC13311271E92148 /* FriendsModule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EB9F730FE3E111F9E454AED /* FriendsModule.storyboard */; };
+		31D9B0D331BBDF18BAD02C4A /* FriendsModuleModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4529639FDE728E0D6588EC07 /* FriendsModuleModuleOutput.swift */; };
+		46809A4281E91616E637BEC0 /* FriendsModuleRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC1F3964AEABF91E9CC5B3 /* FriendsModuleRouterInput.swift */; };
+		6D8D2144F001CB22C0B53B9B /* FriendsModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B8D477D8602791E544A0B /* FriendsModuleInteractor.swift */; };
+		7B4F2A8863829181596E62CC /* FriendsModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38390CB18292E2BD082BC1A7 /* FriendsModuleViewController.swift */; };
 		8A6478BBF13E11A7BD49116D /* Pods_MyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB820EEEFE6B84CA13355294 /* Pods_MyVK.framework */; };
 		AF21BDA327A8126500534A7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF21BDA227A8126500534A7D /* AppDelegate.swift */; };
 		AF21BDA527A8126500534A7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF21BDA427A8126500534A7D /* SceneDelegate.swift */; };
@@ -33,10 +44,20 @@
 		AFE7FAE627B519C3001D4169 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7FAE527B519C3001D4169 /* News.swift */; };
 		AFE7FAE927B5203A001D4169 /* NewsfeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7FAE827B5203A001D4169 /* NewsfeedController.swift */; };
 		AFE7FAEB27B520A0001D4169 /* NewsfeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7FAEA27B520A0001D4169 /* NewsfeedCell.swift */; };
+		E6CA5972A137D09F7FAD84A2 /* FriendsModuleModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381A6B1824CF01CF4106DDB /* FriendsModuleModuleInput.swift */; };
+		EC4176945F0D538013DAB8A4 /* FriendsModuleInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AB69A0F3BC93D3BDBDA88 /* FriendsModuleInteractorInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DAC1F3964AEABF91E9CC5B3 /* FriendsModuleRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleRouterInput.swift; sourceTree = "<group>"; };
 		22152619D46EAEE3E57439B7 /* Pods-MyVK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVK.debug.xcconfig"; path = "Target Support Files/Pods-MyVK/Pods-MyVK.debug.xcconfig"; sourceTree = "<group>"; };
+		2310CED4BB1DFF7680553986 /* FriendsModuleModule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleModule.swift; sourceTree = "<group>"; };
+		2A5334A6AFD1EBFE4DA64268 /* FriendsModulePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModulePresenter.swift; sourceTree = "<group>"; };
+		38390CB18292E2BD082BC1A7 /* FriendsModuleViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleViewController.swift; sourceTree = "<group>"; };
+		3EB9F730FE3E111F9E454AED /* FriendsModule.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = FriendsModule.storyboard; sourceTree = "<group>"; };
+		4529639FDE728E0D6588EC07 /* FriendsModuleModuleOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleModuleOutput.swift; sourceTree = "<group>"; };
+		4A6AB69A0F3BC93D3BDBDA88 /* FriendsModuleInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleInteractorInput.swift; sourceTree = "<group>"; };
+		6381A6B1824CF01CF4106DDB /* FriendsModuleModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleModuleInput.swift; sourceTree = "<group>"; };
 		935E5FDCFE82B65D7985F7FD /* Pods-MyVK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVK.release.xcconfig"; path = "Target Support Files/Pods-MyVK/Pods-MyVK.release.xcconfig"; sourceTree = "<group>"; };
 		AB820EEEFE6B84CA13355294 /* Pods_MyVK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyVK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF21BD9F27A8126500534A7D /* MyVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +87,11 @@
 		AFE7FAE527B519C3001D4169 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		AFE7FAE827B5203A001D4169 /* NewsfeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedController.swift; sourceTree = "<group>"; };
 		AFE7FAEA27B520A0001D4169 /* NewsfeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCell.swift; sourceTree = "<group>"; };
+		BD0B8D477D8602791E544A0B /* FriendsModuleInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleInteractor.swift; sourceTree = "<group>"; };
+		C798ED2C8448B06680CB6FF2 /* FriendsModuleRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleRouter.swift; sourceTree = "<group>"; };
+		D078942723A9C0FA8D76A432 /* FriendsModuleViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleViewInput.swift; sourceTree = "<group>"; };
+		E7B38D6751E50AFF2FAEE74B /* FriendsModuleViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleViewOutput.swift; sourceTree = "<group>"; };
+		FCBAF80FDF88952159B2A917 /* FriendsModuleInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsModuleInteractorOutput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +106,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D65FD4ADB7F44E6285747F3 /* FriendsModule */ = {
+			isa = PBXGroup;
+			children = (
+				43D76CC4A43ABF1401FB46DC /* View */,
+				A6A5752B518C6B1B97A1732A /* Presenter */,
+				719EB2471B12D91122F08F2C /* Interactor */,
+				3CBEE20D18A2BEDD8ACC0883 /* Router */,
+				8144548913B56E74426B164C /* Module */,
+			);
+			path = FriendsModule;
+			sourceTree = "<group>";
+		};
+		3CBEE20D18A2BEDD8ACC0883 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0DAC1F3964AEABF91E9CC5B3 /* FriendsModuleRouterInput.swift */,
+				C798ED2C8448B06680CB6FF2 /* FriendsModuleRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		43D76CC4A43ABF1401FB46DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D078942723A9C0FA8D76A432 /* FriendsModuleViewInput.swift */,
+				E7B38D6751E50AFF2FAEE74B /* FriendsModuleViewOutput.swift */,
+				38390CB18292E2BD082BC1A7 /* FriendsModuleViewController.swift */,
+				3EB9F730FE3E111F9E454AED /* FriendsModule.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		52DAA7D50668A0EA41872059 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,12 +147,40 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		719EB2471B12D91122F08F2C /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				4A6AB69A0F3BC93D3BDBDA88 /* FriendsModuleInteractorInput.swift */,
+				FCBAF80FDF88952159B2A917 /* FriendsModuleInteractorOutput.swift */,
+				BD0B8D477D8602791E544A0B /* FriendsModuleInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		8144548913B56E74426B164C /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				6381A6B1824CF01CF4106DDB /* FriendsModuleModuleInput.swift */,
+				4529639FDE728E0D6588EC07 /* FriendsModuleModuleOutput.swift */,
+				2310CED4BB1DFF7680553986 /* FriendsModuleModule.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
 		A4E784C39414BBD389128D88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				AB820EEEFE6B84CA13355294 /* Pods_MyVK.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6A5752B518C6B1B97A1732A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				2A5334A6AFD1EBFE4DA64268 /* FriendsModulePresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		AF21BD9627A8126500534A7D = {
@@ -133,6 +219,7 @@
 				AF21BDAB27A8126800534A7D /* Assets.xcassets */,
 				AF21BDAD27A8126800534A7D /* LaunchScreen.storyboard */,
 				AF21BDB027A8126800534A7D /* Info.plist */,
+				2D65FD4ADB7F44E6285747F3 /* FriendsModule */,
 			);
 			path = MyVK;
 			sourceTree = "<group>";
@@ -268,6 +355,7 @@
 				AFA94F1D27BA7C080034D133 /* GoogleService-Info.plist in Resources */,
 				AF21BDAC27A8126800534A7D /* Assets.xcassets in Resources */,
 				AF21BDAA27A8126500534A7D /* Main.storyboard in Resources */,
+				2ADD9B2AAC13311271E92148 /* FriendsModule.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +429,18 @@
 				AFA3BBFB27BBD33000EDF6E1 /* NewsfeedCodeCell.swift in Sources */,
 				AFE7FAE627B519C3001D4169 /* News.swift in Sources */,
 				AF3E5B5C27A965080077DFBE /* AllGroupsCell.swift in Sources */,
+				0AFFF940BD4AEBDDF43DE55D /* FriendsModuleViewInput.swift in Sources */,
+				0AA6BCD0503511DEF2BA04DE /* FriendsModuleViewOutput.swift in Sources */,
+				7B4F2A8863829181596E62CC /* FriendsModuleViewController.swift in Sources */,
+				108D7B707DEF7677C00015D6 /* FriendsModulePresenter.swift in Sources */,
+				EC4176945F0D538013DAB8A4 /* FriendsModuleInteractorInput.swift in Sources */,
+				293477409C3CA4B15E4204F9 /* FriendsModuleInteractorOutput.swift in Sources */,
+				6D8D2144F001CB22C0B53B9B /* FriendsModuleInteractor.swift in Sources */,
+				46809A4281E91616E637BEC0 /* FriendsModuleRouterInput.swift in Sources */,
+				1A70A426008EA40242C2AB1F /* FriendsModuleRouter.swift in Sources */,
+				E6CA5972A137D09F7FAD84A2 /* FriendsModuleModuleInput.swift in Sources */,
+				31D9B0D331BBDF18BAD02C4A /* FriendsModuleModuleOutput.swift in Sources */,
+				19115165C4346B3CB66DC545 /* FriendsModuleModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
