@@ -9,6 +9,6 @@
 import UIKit
 
 protocol FriendsModuleModuleInput: AnyObject {
-    //func present(from viewController: UIViewController)
+    func present(from viewController: UIViewController)
     //func presentAsNavController(from vc: UIViewController)
 }

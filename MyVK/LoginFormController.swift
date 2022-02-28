@@ -113,7 +113,9 @@ extension LoginFormController: WKNavigationDelegate {
                 })
                 
                 vkService.loadFriendsData(completion: {friends in
-                    self.performSegue(withIdentifier: "showTabBar", sender: self)
+                    let tabBar = TabBarModuleModule()
+                    tabBar.present(from: self)
+                    //self.performSegue(withIdentifier: "showTabBar", sender: self)
                     print(accessToken ?? "")
                     print(userId ?? "")
                 })

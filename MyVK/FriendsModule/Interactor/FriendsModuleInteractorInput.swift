@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol FriendsModuleInteractorInput: AnyObject {
     var output: FriendsModuleInteractorOutput? { get set }
     func getFriendsList()
+    func subscribeToChanges(tableView: UITableView)
 }

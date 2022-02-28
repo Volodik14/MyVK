@@ -8,9 +8,8 @@
 
 import UIKit
 
-class FriendsModuleViewController: UIViewController {
+class FriendsModuleViewController: UITableViewController {
     
-    private var tableView: UITableView!
     private var friends = [User]()
 
     var output: FriendsModuleViewOutput?
@@ -20,7 +19,12 @@ class FriendsModuleViewController: UIViewController {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        output?.viewIsReady()
+        tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: FriendsTableViewCell.reuseId)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        output?.viewIsReady(tableView: tableView)
     }
     
     
@@ -32,12 +36,8 @@ extension FriendsModuleViewController: FriendsModuleViewInput {
         tableView.reloadData()
     }
     
-    static func create() -> FriendsModuleViewInput {
+    static func create() -> FriendsModuleViewController {
         let view = FriendsModuleViewController()
-        view.tableView = UITableView()
-        view.tableView.dataSource = view
-        view.tableView.delegate = view
-        view.view.addSubview(view.tableView)
         return view
     }
 }
@@ -67,18 +67,44 @@ extension FriendsModuleViewController: ViewControllerable {
 }
 */
 
-extension FriendsModuleViewController: UITableViewDelegate {
-    
+extension FriendsModuleViewController {
+    // Перезод на контроллер показа фото.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showFriendPhotos") {
+            let friendsPhotosController = (segue.destination as! FriendPhotosController)
+            if let row = tableView.indexPathForSelectedRow?.row {
+                friendsPhotosController.userId = friends[row].id
+            }
+            
+            
+        }
+    }
 }
 
-extension FriendsModuleViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FriendsModuleViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friends.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Kek") as! UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendsTableViewCell.reuseId) as! FriendsTableViewCell
+        cell.config(with: friends[indexPath.row])
         return cell
+    }
+    
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendPhotosController") as? FriendPhotosController {
+            viewController.userId = friends[indexPath.row].id
+            self.navigationController?.pushViewController(viewController, animated: true)
+           }
+        
+        
     }
     
     

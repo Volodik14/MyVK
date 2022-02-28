@@ -7,31 +7,35 @@ import UIKit
 
 class FriendsModuleModule {
     private let presenter = FriendsModulePresenter()
-    private let view: FriendsModuleViewInput
-
-    init(output: FriendsModuleModuleOutput) {
+    
+    func configuredFiewController() -> UIViewController {
         let interactor = FriendsModuleInteractor()
         interactor.output = presenter
 
-        view = FriendsModuleViewController.create()
+        let view = FriendsModuleViewController.create()
         view.output = presenter
 
-        presenter.output = output
+        //presenter.output = output
         presenter.view = view
         presenter.router = FriendsModuleRouter()
         presenter.interactor = interactor
+        return view
     }
+
 }
 
 // MARK: FriendsModuleModuleInput
 extension FriendsModuleModule: FriendsModuleModuleInput {
-    /*
     func present(from viewController: UIViewController) {
-        <#code#>
+        if let viewController = UIStoryboard(name: "FriendsModule", bundle: nil).instantiateViewController(withIdentifier: "FriendsModuleViewController") as? FriendsModuleViewController {
+            if let navigator = viewController.navigationController {
+                   navigator.pushViewController(viewController, animated: true)
+               }
+           }
     }
-    
+    /*
     func presentAsNavController(from vc: UIViewController) {
-        <#code#>
+        
     }
     */
 

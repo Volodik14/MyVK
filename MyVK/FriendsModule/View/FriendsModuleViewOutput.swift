@@ -9,6 +9,5 @@
 import UIKit
 
 protocol FriendsModuleViewOutput: AnyObject {
-    func viewIsReady()
-    func tapNavigationLeftBarButton()
+    func viewIsReady(tableView: UITableView)
 }

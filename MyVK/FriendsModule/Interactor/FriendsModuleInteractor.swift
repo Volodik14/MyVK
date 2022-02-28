@@ -7,25 +7,49 @@
 //
 
 import Foundation
+import RealmSwift
+import UIKit
 
 class FriendsModuleInteractor {
     weak var output: FriendsModuleInteractorOutput?
+    private var notificationToken: NotificationToken? = nil
 }
 
 // MARK: - FriendsModuleInteractorInput
 extension FriendsModuleInteractor: FriendsModuleInteractorInput {
+    
     func getFriendsList() {
-        if let userId = UserDefaults.standard.string(forKey: "userId") {
-            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-                let vkService = VKService(userId, accessToken)
-                vkService.loadFriendsData( completion: {friends in
-                    
-                })
-            } else {
-                output?.getFriendsListFail(error: "Cannot get friends")
+        
+        guard let realm = try? Realm() else { return }
+        
+        let friends = Array(realm.objects(User.self))
+        
+        output?.getFriendsListSuccess(model: friends)
+        
+    }
+    
+    func subscribeToChanges(tableView: UITableView) {
+        guard let realm = try? Realm() else { return }
+        
+        let friends = realm.objects(User.self)
+        
+        notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
             }
         }
-        
     }
     
     

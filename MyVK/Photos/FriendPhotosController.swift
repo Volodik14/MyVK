@@ -16,7 +16,7 @@ class FriendPhotosController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         // Получаем токен и id пользователя.
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {

@@ -10,7 +10,7 @@ import UIKit
 
 class FriendsModulePresenter {
     weak var view: FriendsModuleViewInput!
-    weak var output: FriendsModuleModuleOutput?
+    //weak var output: FriendsModuleModuleOutput?
     var interactor: FriendsModuleInteractorInput!
     var router: FriendsModuleRouterInput!
 
@@ -41,17 +41,24 @@ extension FriendsModulePresenter {
 
 // MARK: - FriendsModuleViewOutput
 extension FriendsModulePresenter: FriendsModuleViewOutput {
-    func viewIsReady() {
-        interactor
+
+    func viewIsReady(tableView: UITableView) {
+        interactor.getFriendsList()
+        interactor.subscribeToChanges(tableView: tableView)
     }
     
-    func tapNavigationLeftBarButton() {
-        closeView?()
-    }
 }
 
 // MARK: - FriendsModuleInteractorOutput
 extension FriendsModulePresenter: FriendsModuleInteractorOutput {
+    func subscribeToChangesSuccess() {
+        print("Success subscribing")
+    }
+    
+    func subscribeToChangesFail(error: String) {
+        print(error)
+    }
+    
     func getFriendsListSuccess(model: [User]) {
         view.updateData(friends: model)
     }
@@ -59,6 +66,4 @@ extension FriendsModulePresenter: FriendsModuleInteractorOutput {
     func getFriendsListFail(error: String) {
         print(error)
     }
-    
-
 }

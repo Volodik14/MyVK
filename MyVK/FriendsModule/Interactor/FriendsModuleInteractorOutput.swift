@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol FriendsModuleInteractorOutput: AnyObject {
     func getFriendsListSuccess(model: [User])
     func getFriendsListFail(error: String)
+    func subscribeToChangesSuccess()
+    func subscribeToChangesFail(error: String)
 }
