@@ -12,6 +12,8 @@ class AllGroupsController: UITableViewController {
     private var userId = ""
     private var accessToken = ""
     
+    public var groupDelegate: AddGroupDelegate? = nil
+    
     var groups = [Group]()
     private var resultSearchController = UISearchController()
     
@@ -79,6 +81,11 @@ class AllGroupsController: UITableViewController {
         cell.config(with: group)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        groupDelegate?.setGroup(group: groups[indexPath.row])
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

@@ -13,7 +13,7 @@ class TabBarModuleViewController: UITabBarController {
     var output: TabBarModuleViewOutput?
     @IBOutlet private var navigationView: UIView!
     @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
-
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class TabBarModuleViewController: UITabBarController {
         
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsfeedController") as? NewsfeedController {
             viewControllers?.append(generateNavigationController(rootViewController: viewController, unselectedImage: UIImage(systemName: "newspaper.fill"), selectedImage: UIImage(systemName: "newspaper.fill"), title: "Новости"))
-           }
+        }
         
         
         output?.viewIsReady()
@@ -52,7 +52,7 @@ class TabBarModuleViewController: UITabBarController {
 
 // MARK: - ViewControllerable
 extension TabBarModuleViewController: TabBarModuleViewInput {
-
+    
     
     static func create() -> TabBarModuleViewController {
         let view = TabBarModuleViewController()

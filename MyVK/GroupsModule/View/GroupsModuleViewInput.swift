@@ -11,4 +11,5 @@ import UIKit
 protocol GroupsModuleViewInput: AnyObject {
     var output: GroupsModuleViewOutput? { get set }
     func updateData(groups: [Group])
+    func addGroup(group: Group)
 }

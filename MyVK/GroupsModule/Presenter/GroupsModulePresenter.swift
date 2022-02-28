@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol AddGroupDelegate {
+    func setGroup(group: Group)
+}
+
 class GroupsModulePresenter {
     weak var view: GroupsModuleViewInput!
     weak var output: GroupsModuleModuleOutput?
@@ -30,6 +34,13 @@ extension GroupsModulePresenter {
 
 // MARK: - GroupsModuleViewOutput
 extension GroupsModulePresenter: GroupsModuleViewOutput {
+    func plusButtonClicked(view: UIViewController) {
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsController") as? AllGroupsController {
+            viewController.groupDelegate = self
+            view.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
     func viewIsReady() {
         interactor.getGroupsList()
     }
@@ -40,6 +51,13 @@ extension GroupsModulePresenter: GroupsModuleViewOutput {
     
     func getGroupsListFail(error: String) {
         print(error)
+    }
+}
+
+// MARK: - GroupsModuleViewOutput
+extension GroupsModulePresenter: AddGroupDelegate {
+    func setGroup(group: Group) {
+        view.addGroup(group: group)
     }
 }
 
