@@ -13,15 +13,15 @@ class GroupsModuleViewController: UITableViewController {
     private var groups = [Group]()
 
     var output: GroupsModuleViewOutput?
-    var plusButton: UIButton!
     @IBOutlet private var navigationView: UIView!
     @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: FriendsTableViewCell.reuseId)
-        plusButton = createPlusButton()
-        self.view.addSubview(plusButton)
+        tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier:
+                            FriendsTableViewCell.reuseId)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addTapped))
+        //plusButton = createPlusButton()
         //setupConstraints()
         output?.viewIsReady()
         
@@ -46,44 +46,12 @@ extension GroupsModuleViewController: GroupsModuleViewInput {
         let view = GroupsModuleViewController()
         return view
     }
+    
+    @objc func addTapped() {
+        output?.plusButtonClicked(view: self, groups: groups)
+    }
 }
 
-extension GroupsModuleViewController {
-    func createPlusButton() -> UIButton {
-        var configuration = UIButton.Configuration.bordered()
-        configuration.cornerStyle = .capsule
-        configuration.baseForegroundColor = .white
-        configuration.baseBackgroundColor = .blue
-        let button = UIButton(configuration: configuration)
-        button.contentHorizontalAlignment = .center
-        button.clipsToBounds = true
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        return button
-    }
-    
-    func setupConstraints() {
-        
-        plusButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            plusButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            plusButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
-            plusButton.widthAnchor.constraint(equalToConstant: 50),
-            plusButton.heightAnchor.constraint(equalToConstant: 50)])
-    }
-    
-    override func viewWillLayoutSubviews() {
-        
-        //roundButton.backgroundColor = UIColor.lightGray
-        plusButton.clipsToBounds = true
-        plusButton.setImage(UIImage(named:"plus"), for: .normal)
-        plusButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            plusButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -3),
-            plusButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
-            plusButton.widthAnchor.constraint(equalToConstant: 50),
-            plusButton.heightAnchor.constraint(equalToConstant: 50)])
-    }
-}
 
 extension GroupsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

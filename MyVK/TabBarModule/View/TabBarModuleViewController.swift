@@ -39,11 +39,11 @@ class TabBarModuleViewController: UITabBarController {
     
     private func generateNavigationController(rootViewController: UIViewController, unselectedImage: UIImage?, selectedImage: UIImage?, title: String?) -> UIViewController {
         let navigationVC = UINavigationController(rootViewController: rootViewController)
-        navigationVC.setNavigationBarHidden(true, animated: true)
+        navigationVC.setNavigationBarHidden(false, animated: true)
         navigationVC.tabBarItem.image = unselectedImage
         navigationVC.tabBarItem.title = title
         navigationVC.tabBarItem.selectedImage = selectedImage
-        navigationVC.navigationBar.isTranslucent = false
+        navigationVC.navigationBar.isTranslucent = true
         return navigationVC
     }
     

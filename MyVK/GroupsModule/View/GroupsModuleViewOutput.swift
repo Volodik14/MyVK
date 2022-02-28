@@ -10,5 +10,5 @@ import UIKit
 
 protocol GroupsModuleViewOutput: AnyObject {
     func viewIsReady()
-    func plusButtonClicked(view: UIViewController)
+    func plusButtonClicked(view: UIViewController, groups: [Group])
 }

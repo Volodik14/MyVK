@@ -34,9 +34,10 @@ extension GroupsModulePresenter {
 
 // MARK: - GroupsModuleViewOutput
 extension GroupsModulePresenter: GroupsModuleViewOutput {
-    func plusButtonClicked(view: UIViewController) {
+    func plusButtonClicked(view: UIViewController, groups: [Group]) {
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsController") as? AllGroupsController {
             viewController.groupDelegate = self
+            viewController.userGroups = groups
             view.navigationController?.pushViewController(viewController, animated: true)
         }
     }
