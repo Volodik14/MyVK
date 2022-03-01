@@ -9,10 +9,7 @@
 import Foundation
 
 class TabBarModuleInteractor {
-    weak var output: TabBarModuleInteractorOutput?
-}
-
-// MARK: - TabBarModuleInteractorInput
-extension TabBarModuleInteractor: TabBarModuleInteractorInput {
 
 }
+
+

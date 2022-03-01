@@ -15,21 +15,10 @@ class GroupsModuleModule {
         let view = GroupsModuleViewController.create()
         view.output = presenter
 
-        //presenter.output = output
+
         presenter.view = view
-        presenter.router = GroupsModuleRouter()
+        //presenter.router = GroupsModuleRouter()
         presenter.interactor = interactor
         return view
-    }
-}
-
-// MARK: GroupsModuleModuleInput
-extension GroupsModuleModule: GroupsModuleModuleInput {
-    func presentAsNavController(from vc: UIViewController) {
-        presenter.presentAsNavController(from: vc)
-    }
-    
-    func present(from vc: UIViewController) {
-        presenter.present(from: vc)
     }
 }

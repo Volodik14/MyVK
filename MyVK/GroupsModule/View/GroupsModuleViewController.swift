@@ -13,8 +13,8 @@ class GroupsModuleViewController: UITableViewController {
     private var groups = [Group]()
 
     var output: GroupsModuleViewOutput?
-    @IBOutlet private var navigationView: UIView!
-    @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet private var navigationView: UIView!
+    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()

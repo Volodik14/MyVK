@@ -13,8 +13,8 @@ class FriendsModuleViewController: UITableViewController {
     private var friends = [User]()
 
     var output: FriendsModuleViewOutput?
-    @IBOutlet private var navigationView: UIView!
-    @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet private var navigationView: UIView!
+    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -26,8 +26,6 @@ class FriendsModuleViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         output?.viewIsReady(tableView: tableView)
     }
-    
-    
 }
 
 extension FriendsModuleViewController: FriendsModuleViewInput {
@@ -53,18 +51,11 @@ extension FriendsModuleViewController {
         return cell
     }
     
-    
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendPhotosController") as? FriendPhotosController {
-            viewController.userId = friends[indexPath.row].id
-            self.navigationController?.pushViewController(viewController, animated: true)
-           }
+        output?.showFriendsPhoto(sender: self, friend: friends[indexPath.row])
     }
-    
-    
 }

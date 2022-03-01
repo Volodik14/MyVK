@@ -14,34 +14,15 @@ class FriendsModulePresenter {
     var interactor: FriendsModuleInteractorInput!
     var router: FriendsModuleRouterInput!
 
-    private var closeView: (() -> ())?
-    private var closeImage: UIImage?
 }
 
-// MARK: - Present
-/*
-extension FriendsModulePresenter {
-    func present(from vc: UIViewController) {
-        closeImage = UIImage(named: "back_arrow_black")
-        closeView = { [weak self] in
-            self?.view.viewController.navigationController?.popViewController(animated: true)
-        }
-        view.present(from: vc)
-    }
-
-    func presentAsNavController(from vc: UIViewController) {
-        closeImage = UIImage(named: "close_black")
-        closeView = { [weak self] in
-            self?.view.viewController.navigationController?.dismiss(animated: true)
-        }
-        view.presentAsNavController(from: vc)
-    }
-}
-*/
 
 // MARK: - FriendsModuleViewOutput
 extension FriendsModulePresenter: FriendsModuleViewOutput {
-
+    func showFriendsPhoto(sender: UIViewController, friend: User) {
+        router.showFriendPhotosViewController(sender: sender, id: friend.id)
+    }
+    
     func viewIsReady(tableView: UITableView) {
         interactor.getFriendsList()
         interactor.subscribeToChanges(tableView: tableView)

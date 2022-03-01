@@ -10,4 +10,5 @@ import UIKit
 
 protocol FriendsModuleViewOutput: AnyObject {
     func viewIsReady(tableView: UITableView)
+    func showFriendsPhoto(sender: UIViewController, friend: User)
 }

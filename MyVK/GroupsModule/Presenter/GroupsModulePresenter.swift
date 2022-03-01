@@ -14,22 +14,12 @@ protocol AddGroupDelegate {
 
 class GroupsModulePresenter {
     weak var view: GroupsModuleViewInput!
-    weak var output: GroupsModuleModuleOutput?
     var interactor: GroupsModuleInteractorInput!
-    var router: GroupsModuleRouterInput!
 
     private var closeView: (() -> ())?
     private var closeImage: UIImage?
 }
 
-// MARK: - Present
-extension GroupsModulePresenter {
-    func present(from vc: UIViewController) {
-    }
-
-    func presentAsNavController(from vc: UIViewController) {
-    }
-}
 
 
 // MARK: - GroupsModuleViewOutput

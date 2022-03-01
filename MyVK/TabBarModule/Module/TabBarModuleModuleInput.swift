@@ -9,6 +9,5 @@
 import UIKit
 
 protocol TabBarModuleModuleInput: AnyObject {
-    func present(from viewController: UIViewController)
-    func presentAsNavController(from vc: UIViewController)
+    func present(from vc: UIViewController)
 }

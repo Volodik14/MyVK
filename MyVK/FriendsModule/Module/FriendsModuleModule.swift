@@ -15,7 +15,6 @@ class FriendsModuleModule {
         let view = FriendsModuleViewController.create()
         view.output = presenter
 
-        //presenter.output = output
         presenter.view = view
         presenter.router = FriendsModuleRouter()
         presenter.interactor = interactor
@@ -33,10 +32,4 @@ extension FriendsModuleModule: FriendsModuleModuleInput {
                }
            }
     }
-    /*
-    func presentAsNavController(from vc: UIViewController) {
-        
-    }
-    */
-
 }

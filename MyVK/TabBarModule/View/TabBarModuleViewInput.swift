@@ -2,13 +2,11 @@
 //  TabBarModuleViewInput.swift
 //  MyVK
 //
-//  Created by Motorkin Vladimir on 28/02/2022.
-//  Copyright © 2022 MVM. All rights reserved.
+//  Created by Владимир Моторкин on 01.03.2022.
 //
 
-import UIKit
-
+import Foundation
 protocol TabBarModuleViewInput: AnyObject {
-    var output: TabBarModuleViewOutput? { get set }
 
 }
+

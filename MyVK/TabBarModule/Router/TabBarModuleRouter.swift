@@ -13,6 +13,6 @@ class TabBarModuleRouter {
 }
 
 // MARK: - TabBarModuleRouterInput
-extension TabBarModuleRouter: TabBarModuleRouterInput {
+extension TabBarModuleRouter {
     
 }

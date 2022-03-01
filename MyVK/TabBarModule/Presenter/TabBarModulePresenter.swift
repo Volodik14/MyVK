@@ -9,10 +9,6 @@
 import UIKit
 
 class TabBarModulePresenter {
-    weak var view: TabBarModuleViewInput!
-    weak var output: TabBarModuleModuleOutput?
-    var interactor: TabBarModuleInteractorInput!
-    var router: TabBarModuleRouterInput!
 
     private var closeView: (() -> ())?
     private var closeImage: UIImage?
@@ -20,18 +16,5 @@ class TabBarModulePresenter {
 
 // MARK: - Present
 extension TabBarModulePresenter {
-
-}
-
-// MARK: - TabBarModuleViewOutput
-extension TabBarModulePresenter: TabBarModuleViewOutput {
-    func viewIsReady() {
-
-    }
-    
-}
-
-// MARK: - TabBarModuleInteractorOutput
-extension TabBarModulePresenter: TabBarModuleInteractorOutput {
 
 }

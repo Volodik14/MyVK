@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import UIKit
 
 protocol FriendsModuleRouterInput: AnyObject {
-
+    func showFriendPhotosViewController(sender: UIViewController, id: String)
 }

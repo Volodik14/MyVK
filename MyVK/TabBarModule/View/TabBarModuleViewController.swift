@@ -10,7 +10,6 @@ import UIKit
 
 class TabBarModuleViewController: UITabBarController {
     
-    var output: TabBarModuleViewOutput?
     @IBOutlet private var navigationView: UIView!
     @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
     
@@ -33,8 +32,6 @@ class TabBarModuleViewController: UITabBarController {
             viewControllers?.append(generateNavigationController(rootViewController: viewController, unselectedImage: UIImage(systemName: "newspaper.fill"), selectedImage: UIImage(systemName: "newspaper.fill"), title: "Новости"))
         }
         
-        
-        output?.viewIsReady()
     }
     
     private func generateNavigationController(rootViewController: UIViewController, unselectedImage: UIImage?, selectedImage: UIImage?, title: String?) -> UIViewController {
@@ -50,10 +47,8 @@ class TabBarModuleViewController: UITabBarController {
 }
 
 
-// MARK: - ViewControllerable
+// MARK: - Creation
 extension TabBarModuleViewController: TabBarModuleViewInput {
-    
-    
     static func create() -> TabBarModuleViewController {
         let view = TabBarModuleViewController()
         return view

@@ -13,6 +13,6 @@ class GroupsModuleRouter {
 }
 
 // MARK: - GroupsModuleRouterInput
-extension GroupsModuleRouter: GroupsModuleRouterInput {
+extension GroupsModuleRouter {
     
 }
