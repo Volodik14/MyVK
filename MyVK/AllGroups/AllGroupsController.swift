@@ -83,20 +83,23 @@ class AllGroupsController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    
+    // MARK: - Table view delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         groupDelegate?.setGroup(group: groups[indexPath.row])
+        resultSearchController.dismiss(animated: true)
         self.navigationController?.popViewController(animated: true)
     }
 }
 
+
+// MARK: - Search bar delegate.
 extension AllGroupsController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // MARK: - Проблема с фильтрацией вывода только групп пользователя.
+        
         let vkService = VKService(userId, accessToken)
         vkService.loadGroupsDataBySearch(search: searchBar.text!, completion: { searchGroups in
-            //Не работает contains...
-            //self.groups.removeAll(where: self.userGroups.contains(_:))
-            
             let groupsWithoutUserGroups = searchGroups.filter( { (searchGroup) -> Bool in
                 for userGroup in self.userGroups  {
                     if searchGroup == userGroup  {
