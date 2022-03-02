@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol AllGroupsModuleViewInput: AnyObject, Presentable, Loadable {
+protocol AllGroupsModuleViewInput: AnyObject {
     var output: AllGroupsModuleViewOutput? { get set }
-
-    func setupNavigationBar(title: String, leftButtonImage: UIImage?)
+    func updateData()
+    func present(from vc: UIViewController)
 }

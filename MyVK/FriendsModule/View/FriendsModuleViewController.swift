@@ -9,8 +9,6 @@
 import UIKit
 
 class FriendsModuleViewController: UITableViewController {
-    
-    
 
     var output: FriendsModuleViewOutput?
     //@IBOutlet private var navigationView: UIView!

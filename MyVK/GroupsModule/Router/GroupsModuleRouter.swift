@@ -7,12 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 class GroupsModuleRouter {
-
+    
 }
 
 // MARK: - GroupsModuleRouterInput
-extension GroupsModuleRouter {
-    
+extension GroupsModuleRouter: GroupsModuleRouterInput {
+    func showAllGroupsModule(output: AllGroupsModuleModuleOutput, sender: UIViewController, groups: [Group]) {
+        let allGroupsModuleModule = AllGroupsModuleModule(output: output, userGroups: groups)
+        allGroupsModuleModule.present(from: sender)
+    }
 }

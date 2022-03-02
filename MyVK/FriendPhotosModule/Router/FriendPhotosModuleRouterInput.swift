@@ -1,5 +1,5 @@
 //
-//  AllGroupsModuleModuleOutput.swift
+//  FriendPhotosModuleRouterInput.swift
 //  MyVK
 //
 //  Created by Motorkin Vladimir on 02/03/2022.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol AllGroupsModuleModuleOutput: AnyObject {
-    func addGroup(group: Group)
+protocol FriendPhotosModuleRouterInput: AnyObject {
+
 }

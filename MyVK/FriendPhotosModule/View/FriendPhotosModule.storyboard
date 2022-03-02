@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--FriendPhotosModule View Controller-->
+        <scene sceneID="iQD-7Q-ugX">
+            <objects>
+                <viewController storyboardIdentifier="FriendPhotosModuleViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jGj-gt-ec7" customClass="FriendPhotosModuleViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fpZ-83-tPa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S8W-Hs-lEb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Zyi-kF-wOB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="HhK-QP-Upz"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HhK-QP-Upz" firstAttribute="trailing" secondItem="S8W-Hs-lEb" secondAttribute="trailing" id="2OM-27-jbR"/>
+                            <constraint firstItem="S8W-Hs-lEb" firstAttribute="leading" secondItem="HhK-QP-Upz" secondAttribute="leading" id="MW3-gN-rNI"/>
+                            <constraint firstItem="S8W-Hs-lEb" firstAttribute="top" secondItem="HhK-QP-Upz" secondAttribute="top" id="gxQ-de-BdI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="navigationView" destination="S8W-Hs-lEb" id="Z1D-3P-56E"/>
+                        <outlet property="navigationViewHeightConstraint" destination="Zyi-kF-wOB" id="HrB-Rl-Fvk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Fn-gN-HZY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-484" y="-54"/>
+        </scene>
+    </scenes>
+</document>

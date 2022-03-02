@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AllGroupsModuleRouter {
 
@@ -14,5 +15,7 @@ class AllGroupsModuleRouter {
 
 // MARK: - AllGroupsModuleRouterInput
 extension AllGroupsModuleRouter: AllGroupsModuleRouterInput {
-    
+    func closeView(sender: UIViewController) {
+        sender.navigationController?.popViewController(animated: true)
+    }
 }

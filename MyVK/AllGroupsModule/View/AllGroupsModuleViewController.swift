@@ -8,43 +8,70 @@
 
 import UIKit
 
-class AllGroupsModuleViewController: UIViewController {
+class AllGroupsModuleViewController: UITableViewController, UISearchBarDelegate {
 
     var output: AllGroupsModuleViewOutput?
-    @IBOutlet private var navigationView: UIView!
-    @IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
+    
+    private var resultSearchController = UISearchController()
+    
+    //@IBOutlet private var navigationView: UIView!
+    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        resultSearchController = createSearchController()
         output?.viewIsReady()
+    }
+    
+    func createSearchController() -> UISearchController {
+        return ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchBar.delegate = self
+            controller.searchBar.sizeToFit()
+            
+            tableView.tableHeaderView = controller.searchBar
+            
+            return controller
+        })()
     }
 }
 
 // MARK: - AllGroupsModuleViewInput
 extension AllGroupsModuleViewController: AllGroupsModuleViewInput {
+    func present(from vc: UIViewController) {
+        vc.navigationController?.pushViewController(self, animated: true)
+    }
     
-    static func create() -> GroupsModuleViewController {
-        let view = GroupsModuleViewController()
+    static func create() -> AllGroupsModuleViewController {
+        let view = AllGroupsModuleViewController()
         return view
     }
     
-    func setupNavigationBar(title: String, leftButtonImage: UIImage?) {
-        if let navigationView = NavigationBarView.instanceFromNib(with: NSAttributedString(string: title), parentView: navigationView, parentViewHeightConstraint: navigationViewHeightConstraint) {
-            navigationView.setLeftBarButton(with: leftButtonImage, titleLabel: nil, color: .black, tap: { [weak self] in
-                self?.output?.tapNavigationLeftBarButton()
-            })
-
-            self.view.backgroundColor = ColorStyle.navigationBar.color()
-            navigationView.backgroundColor = ColorStyle.navigationBar.color()
-            navigationController?.navigationBar.isHidden = true
-        }
+    func updateData() {
+        tableView.reloadData()
     }
 }
 
-// MARK: - ViewControllerable
-extension AllGroupsModuleViewController: ViewControllerable {
-    static func storyBoardName() -> String {
-        return "AllGroupsModule"
+// MARK: - TableView
+extension AllGroupsModuleViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        output?.itemsCount ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: AllGroupsTableViewCell.reuseId) as! AllGroupsTableViewCell
+        let group = output?.getItem(row: indexPath.row)
+        cell.config(with: group)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        resultSearchController.dismiss(animated: true)
+        output?.addGroup(sender: self, row: indexPath.row)
     }
 }

@@ -15,9 +15,9 @@ class GroupsModuleModule {
         let view = GroupsModuleViewController.create()
         view.output = presenter
 
-
+        
         presenter.view = view
-        //presenter.router = GroupsModuleRouter()
+        presenter.router = GroupsModuleRouter()
         presenter.interactor = interactor
         return view
     }

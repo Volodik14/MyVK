@@ -9,5 +9,6 @@
 import Foundation
 
 protocol AllGroupsModuleInteractorOutput: AnyObject {
-
+    func getAllGroupsSuccess(model: [Group])
+    func getAllGroupsFail(error: String)
 }

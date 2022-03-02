@@ -9,7 +9,7 @@ class AllGroupsModuleModule {
     private let presenter = AllGroupsModulePresenter()
     private let view: AllGroupsModuleViewInput
 
-    init(output: AllGroupsModuleModuleOutput) {
+    init(output: AllGroupsModuleModuleOutput, userGroups: [Group]) {
         let interactor = AllGroupsModuleInteractor()
         interactor.output = presenter
 
@@ -20,15 +20,12 @@ class AllGroupsModuleModule {
         presenter.view = view
         presenter.router = AllGroupsModuleRouter()
         presenter.interactor = interactor
+        presenter.userGroups = userGroups
     }
 }
 
 // MARK: AllGroupsModuleModuleInput
 extension AllGroupsModuleModule: AllGroupsModuleModuleInput {
-    func presentAsNavController(from vc: UIViewController) {
-        presenter.presentAsNavController(from: vc)
-    }
-    
     func present(from vc: UIViewController) {
         presenter.present(from: vc)
     }

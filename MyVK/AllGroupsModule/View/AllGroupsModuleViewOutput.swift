@@ -10,5 +10,7 @@ import UIKit
 
 protocol AllGroupsModuleViewOutput: AnyObject {
     func viewIsReady()
-    func tapNavigationLeftBarButton()
+    var itemsCount: Int { get }
+    func getItem(row: Int) -> Group
+    func addGroup(sender: UIViewController, row: Int)
 }

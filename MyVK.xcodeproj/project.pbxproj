@@ -74,6 +74,8 @@
 		AF99CDDA27CE131000526A01 /* TabBarModuleViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDD927CE131000526A01 /* TabBarModuleViewInput.swift */; };
 		AF99CDDD27CFA4B500526A01 /* ImageLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDDC27CFA4B500526A01 /* ImageLabelTableViewCell.swift */; };
 		AF99CDDF27CFA5E500526A01 /* GroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDDE27CFA5E500526A01 /* GroupsTableViewCell.swift */; };
+		AF99CDE127CFBF1900526A01 /* AllGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDE027CFBF1900526A01 /* AllGroupsTableViewCell.swift */; };
+		AF99CDE327CFC51A00526A01 /* GroupsModuleRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDE227CFC51A00526A01 /* GroupsModuleRouterInput.swift */; };
 		AFA3BBFB27BBD33000EDF6E1 /* NewsfeedCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA3BBFA27BBD33000EDF6E1 /* NewsfeedCodeCell.swift */; };
 		AFA94F1D27BA7C080034D133 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA94F1C27BA7C070034D133 /* GoogleService-Info.plist */; };
 		AFC4F11727B3F0AA0064B1B4 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC4F11627B3F0A90064B1B4 /* CachedImageView.swift */; };
@@ -162,6 +164,8 @@
 		AF99CDD927CE131000526A01 /* TabBarModuleViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleViewInput.swift; sourceTree = "<group>"; };
 		AF99CDDC27CFA4B500526A01 /* ImageLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelTableViewCell.swift; sourceTree = "<group>"; };
 		AF99CDDE27CFA5E500526A01 /* GroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewCell.swift; sourceTree = "<group>"; };
+		AF99CDE027CFBF1900526A01 /* AllGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		AF99CDE227CFC51A00526A01 /* GroupsModuleRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsModuleRouterInput.swift; sourceTree = "<group>"; };
 		AFA3BBFA27BBD33000EDF6E1 /* NewsfeedCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCodeCell.swift; sourceTree = "<group>"; };
 		AFA94F1C27BA7C070034D133 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFC4F11627B3F0A90064B1B4 /* CachedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				308CC47DAE0575E5A6A74264 /* GroupsModuleRouter.swift */,
+				AF99CDE227CFC51A00526A01 /* GroupsModuleRouterInput.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				3E2B9DA56419556F7BF193D9 /* AllGroupsModuleViewOutput.swift */,
 				1C5291FB405F910AC97240FF /* AllGroupsModuleViewController.swift */,
 				1460A376FE3884C23ACC9785 /* AllGroupsModule.storyboard */,
+				AF99CDE027CFBF1900526A01 /* AllGroupsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,10 +455,10 @@
 				AF21BDAB27A8126800534A7D /* Assets.xcassets */,
 				AF21BDAD27A8126800534A7D /* LaunchScreen.storyboard */,
 				AF21BDB027A8126800534A7D /* Info.plist */,
+				AB3D41710734EAA1897A9CE4 /* FriendPhotosModule */,
 				080FA4B03B9A24D9330363E5 /* TabBarModule */,
 				2D65FD4ADB7F44E6285747F3 /* FriendsModule */,
 				79391875D62135F1D260E1B2 /* GroupsModule */,
-				AB3D41710734EAA1897A9CE4 /* FriendPhotosModule */,
 			);
 			path = MyVK;
 			sourceTree = "<group>";
@@ -814,6 +820,7 @@
 				BA2DAB06D96C811FF6720212 /* AllGroupsModuleModuleOutput.swift in Sources */,
 				9E9855D0FA72F4A984824C05 /* AllGroupsModuleModule.swift in Sources */,
 				494C5FBB3735CFFC316D1628 /* FriendPhotosModuleViewInput.swift in Sources */,
+				AF99CDE327CFC51A00526A01 /* GroupsModuleRouterInput.swift in Sources */,
 				0BF62D67C28C4D9F8A5A257F /* FriendPhotosModuleViewOutput.swift in Sources */,
 				4A4A4D4714ED41B3A6943B42 /* FriendPhotosModuleViewController.swift in Sources */,
 				A0C31D4990408A8E81DDFD95 /* FriendPhotosModulePresenter.swift in Sources */,
@@ -821,6 +828,7 @@
 				94CFFF077357B0C9F59B11CA /* FriendPhotosModuleInteractorOutput.swift in Sources */,
 				AEDA676C771A5903C511F425 /* FriendPhotosModuleInteractor.swift in Sources */,
 				F032D347DEC86962CCE60B84 /* FriendPhotosModuleRouterInput.swift in Sources */,
+				AF99CDE127CFBF1900526A01 /* AllGroupsTableViewCell.swift in Sources */,
 				A2FE4DC700A55E6E824B9C86 /* FriendPhotosModuleRouter.swift in Sources */,
 				7B22DE8CAE48E37021711C2E /* FriendPhotosModuleModuleInput.swift in Sources */,
 				D7B68E6A66FD50DF656C52E3 /* FriendPhotosModuleModuleOutput.swift in Sources */,

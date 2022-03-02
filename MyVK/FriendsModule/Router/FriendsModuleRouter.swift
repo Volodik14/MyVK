@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class FriendsModuleRouter {
-
+    var friendPhotosModule: FriendPhotosModuleModuleInput?
 }
 
 // MARK: - FriendsModuleRouterInput

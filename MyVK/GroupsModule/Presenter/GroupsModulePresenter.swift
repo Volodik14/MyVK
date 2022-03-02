@@ -15,7 +15,7 @@ protocol AddGroupDelegate {
 class GroupsModulePresenter {
     weak var view: GroupsModuleViewInput!
     var interactor: GroupsModuleInteractorInput!
-    
+    var router: GroupsModuleRouterInput!
     var groups = [Group]()
 }
 
@@ -32,11 +32,7 @@ extension GroupsModulePresenter: GroupsModuleViewOutput {
     }
     
     func plusButtonClicked(view: UIViewController) {
-        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsController") as? AllGroupsController {
-            viewController.groupDelegate = self
-            viewController.userGroups = groups
-            view.navigationController?.pushViewController(viewController, animated: true)
-        }
+        router.showAllGroupsModule(output: self, sender: view, groups: groups)
     }
     
     func viewIsReady() {
@@ -65,4 +61,11 @@ extension GroupsModulePresenter: AddGroupDelegate {
 // MARK: - GroupsModuleInteractorOutput
 extension GroupsModulePresenter: GroupsModuleInteractorOutput {
 
+}
+
+extension GroupsModulePresenter: AllGroupsModuleModuleOutput {
+    func addGroup(group: Group) {
+        groups.append(group)
+        view.updateData()
+    }
 }

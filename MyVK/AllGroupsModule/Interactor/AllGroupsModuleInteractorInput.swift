@@ -10,4 +10,5 @@ import Foundation
 
 protocol AllGroupsModuleInteractorInput: AnyObject {
     var output: AllGroupsModuleInteractorOutput? { get set }
+    func getAllGroups(search: String, userGroups: [Group])
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol AllGroupsModuleRouterInput: AnyObject {
-
+    func closeView(sender: UIViewController) 
 }
