@@ -9,5 +9,6 @@
 import Foundation
 
 protocol FriendPhotosModuleInteractorOutput: AnyObject {
-
+    func getPhotosSuccess(model: [Photo])
+    func getPhotosFail(error: String)
 }

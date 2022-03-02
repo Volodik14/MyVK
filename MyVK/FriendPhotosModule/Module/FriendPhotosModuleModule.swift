@@ -9,14 +9,14 @@ class FriendPhotosModuleModule {
     private let presenter = FriendPhotosModulePresenter()
     private let view: FriendPhotosModuleViewInput
 
-    init(output: FriendPhotosModuleModuleOutput) {
-        let interactor = FriendPhotosModuleInteractor()
+    init(userId: String) {
+        let interactor = FriendPhotosModuleInteractor(userId: userId)
         interactor.output = presenter
 
         view = FriendPhotosModuleViewController.create()
         view.output = presenter
 
-        presenter.output = output
+         //presenter.output = output
         presenter.view = view
         presenter.router = FriendPhotosModuleRouter()
         presenter.interactor = interactor
@@ -25,10 +25,6 @@ class FriendPhotosModuleModule {
 
 // MARK: FriendPhotosModuleModuleInput
 extension FriendPhotosModuleModule: FriendPhotosModuleModuleInput {
-    func presentAsNavController(from vc: UIViewController) {
-        presenter.presentAsNavController(from: vc)
-    }
-    
     func present(from vc: UIViewController) {
         presenter.present(from: vc)
     }

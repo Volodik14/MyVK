@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol FriendPhotosModuleViewInput: AnyObject, Presentable, Loadable {
+protocol FriendPhotosModuleViewInput: AnyObject {
     var output: FriendPhotosModuleViewOutput? { get set }
-
-    func setupNavigationBar(title: String, leftButtonImage: UIImage?)
+    func present(from vc: UIViewController)
+    func updateData()
 }

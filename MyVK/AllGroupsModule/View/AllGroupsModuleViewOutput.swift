@@ -13,4 +13,5 @@ protocol AllGroupsModuleViewOutput: AnyObject {
     var itemsCount: Int { get }
     func getItem(row: Int) -> Group
     func addGroup(sender: UIViewController, row: Int)
+    func getGroups(search: String)
 }

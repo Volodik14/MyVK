@@ -76,6 +76,7 @@
 		AF99CDDF27CFA5E500526A01 /* GroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDDE27CFA5E500526A01 /* GroupsTableViewCell.swift */; };
 		AF99CDE127CFBF1900526A01 /* AllGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDE027CFBF1900526A01 /* AllGroupsTableViewCell.swift */; };
 		AF99CDE327CFC51A00526A01 /* GroupsModuleRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDE227CFC51A00526A01 /* GroupsModuleRouterInput.swift */; };
+		AF99CDE527CFCF1600526A01 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF99CDE427CFCF1600526A01 /* PhotosCollectionViewCell.swift */; };
 		AFA3BBFB27BBD33000EDF6E1 /* NewsfeedCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA3BBFA27BBD33000EDF6E1 /* NewsfeedCodeCell.swift */; };
 		AFA94F1D27BA7C080034D133 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA94F1C27BA7C070034D133 /* GoogleService-Info.plist */; };
 		AFC4F11727B3F0AA0064B1B4 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC4F11627B3F0A90064B1B4 /* CachedImageView.swift */; };
@@ -166,6 +167,7 @@
 		AF99CDDE27CFA5E500526A01 /* GroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewCell.swift; sourceTree = "<group>"; };
 		AF99CDE027CFBF1900526A01 /* AllGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		AF99CDE227CFC51A00526A01 /* GroupsModuleRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsModuleRouterInput.swift; sourceTree = "<group>"; };
+		AF99CDE427CFCF1600526A01 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		AFA3BBFA27BBD33000EDF6E1 /* NewsfeedCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCodeCell.swift; sourceTree = "<group>"; };
 		AFA94F1C27BA7C070034D133 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFC4F11627B3F0A90064B1B4 /* CachedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 				6C7C253B2AF6D49F1936E66A /* FriendPhotosModuleViewOutput.swift */,
 				AF451B74B27583D79C413969 /* FriendPhotosModuleViewController.swift */,
 				C95CCE3D6A3A145E4E455666 /* FriendPhotosModule.storyboard */,
+				AF99CDE427CFCF1600526A01 /* PhotosCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				AF3E5B5627A95DA80077DFBE /* FriendCell.swift in Sources */,
 				AF3E5B6027A965340077DFBE /* FriendPhotosController.swift in Sources */,
 				AF8CCEA427AA74C3004F631E /* VKService.swift in Sources */,
+				AF99CDE527CFCF1600526A01 /* PhotosCollectionViewCell.swift in Sources */,
 				AF3E5B5E27A9651A0077DFBE /* AllGroupsController.swift in Sources */,
 				AF3E5B5A27A964EC0077DFBE /* UserGroupCell.swift in Sources */,
 				AF99CDDA27CE131000526A01 /* TabBarModuleViewInput.swift in Sources */,

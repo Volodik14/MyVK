@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol AllGroupsModuleRouterInput: AnyObject {
     func closeView(sender: UIViewController) 

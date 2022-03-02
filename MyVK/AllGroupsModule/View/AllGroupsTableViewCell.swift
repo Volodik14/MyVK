@@ -18,11 +18,13 @@ class AllGroupsTableViewCell: ImageLabelTableViewCell {
     }
     
     func setSubsCount() {
-        contentView.addSubview(groupSubsCount)
         groupSubsCount.font = groupSubsCount.font.withSize(10)
+        
+        contentView.addSubview(groupSubsCount)
+        
         groupSubsCount.translatesAutoresizingMaskIntoConstraints = false
         groupSubsCount.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 5).isActive = true
-        groupSubsCount.topAnchor.constraint(equalTo: name.topAnchor, constant: 5).isActive = true
+        groupSubsCount.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5).isActive = true
     }
     
     func config (with group: Group?) {

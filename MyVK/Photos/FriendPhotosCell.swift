@@ -15,6 +15,8 @@ class FriendPhotosCell: UICollectionViewCell {
         self.friendPhoto.image = nil
     }
     
+    
+    
 
     func config (with photo: Photo) {
         let photoUrl = photo.url

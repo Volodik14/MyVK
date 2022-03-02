@@ -53,6 +53,7 @@ extension AllGroupsModulePresenter: AllGroupsModuleViewOutput {
 extension AllGroupsModulePresenter: AllGroupsModuleInteractorOutput {
     func getAllGroupsSuccess(model: [Group]) {
         self.groups = model
+        view.updateData()
     }
     
     func getAllGroupsFail(error: String) {

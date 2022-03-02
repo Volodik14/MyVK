@@ -16,9 +16,7 @@ class FriendsModuleRouter {
 // MARK: - FriendsModuleRouterInput
 extension FriendsModuleRouter: FriendsModuleRouterInput {
     func showFriendPhotosViewController(sender: UIViewController, id: String) {
-        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendPhotosController") as? FriendPhotosController {
-            viewController.userId = id
-            sender.navigationController?.pushViewController(viewController, animated: true)
-           }
+        let friendPhotosModule = FriendPhotosModuleModule(userId: id)
+        friendPhotosModule.present(from: sender)
     }
 }

@@ -10,4 +10,5 @@ import Foundation
 
 protocol FriendPhotosModuleInteractorInput: AnyObject {
     var output: FriendPhotosModuleInteractorOutput? { get set }
+    func getPhotos()
 }

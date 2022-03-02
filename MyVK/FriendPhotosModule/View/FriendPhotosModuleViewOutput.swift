@@ -9,6 +9,7 @@
 import UIKit
 
 protocol FriendPhotosModuleViewOutput: AnyObject {
+    var itemsCount: Int { get }
     func viewIsReady()
-    func tapNavigationLeftBarButton()
+    func getItem(row: Int) -> Photo
 }

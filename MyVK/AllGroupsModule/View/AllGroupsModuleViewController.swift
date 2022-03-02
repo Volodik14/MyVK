@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllGroupsModuleViewController: UITableViewController, UISearchBarDelegate {
+class AllGroupsModuleViewController: UITableViewController {
 
     var output: AllGroupsModuleViewOutput?
     
@@ -21,6 +21,8 @@ class AllGroupsModuleViewController: UITableViewController, UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         resultSearchController = createSearchController()
+        tableView.register(AllGroupsTableViewCell.self, forCellReuseIdentifier:
+                            AllGroupsTableViewCell.reuseId)
         output?.viewIsReady()
     }
     
@@ -73,5 +75,12 @@ extension AllGroupsModuleViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         resultSearchController.dismiss(animated: true)
         output?.addGroup(sender: self, row: indexPath.row)
+    }
+}
+
+// MARK: - Search bar delegate.
+extension AllGroupsModuleViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        output?.getGroups(search: searchBar.text ?? "")
     }
 }

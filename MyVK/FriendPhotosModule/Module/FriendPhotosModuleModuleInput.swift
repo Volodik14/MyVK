@@ -10,5 +10,4 @@ import UIKit
 
 protocol FriendPhotosModuleModuleInput: AnyObject {
     func present(from viewController: UIViewController)
-    func presentAsNavController(from vc: UIViewController)
 }
