@@ -15,16 +15,23 @@ protocol AddGroupDelegate {
 class GroupsModulePresenter {
     weak var view: GroupsModuleViewInput!
     var interactor: GroupsModuleInteractorInput!
-
-    private var closeView: (() -> ())?
-    private var closeImage: UIImage?
+    
+    var groups = [Group]()
 }
 
 
 
 // MARK: - GroupsModuleViewOutput
 extension GroupsModulePresenter: GroupsModuleViewOutput {
-    func plusButtonClicked(view: UIViewController, groups: [Group]) {
+    var itemsCount: Int {
+        groups.count
+    }
+    
+    func getItem(row: Int) -> Group {
+        groups[row]
+    }
+    
+    func plusButtonClicked(view: UIViewController) {
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsController") as? AllGroupsController {
             viewController.groupDelegate = self
             viewController.userGroups = groups
@@ -37,7 +44,8 @@ extension GroupsModulePresenter: GroupsModuleViewOutput {
     }
     
     func getGroupsListSuccess(model: [Group]) {
-        view.updateData(groups: model)
+        self.groups = model
+        view.updateData()
     }
     
     func getGroupsListFail(error: String) {
@@ -48,7 +56,8 @@ extension GroupsModulePresenter: GroupsModuleViewOutput {
 // MARK: - GroupsModuleViewOutput
 extension GroupsModulePresenter: AddGroupDelegate {
     func setGroup(group: Group) {
-        view.addGroup(group: group)
+        groups.append(group)
+        view.updateData()
     }
 }
 

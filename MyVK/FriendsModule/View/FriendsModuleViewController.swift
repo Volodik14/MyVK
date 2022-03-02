@@ -10,7 +10,7 @@ import UIKit
 
 class FriendsModuleViewController: UITableViewController {
     
-    private var friends = [User]()
+    
 
     var output: FriendsModuleViewOutput?
     //@IBOutlet private var navigationView: UIView!
@@ -29,25 +29,25 @@ class FriendsModuleViewController: UITableViewController {
 }
 
 extension FriendsModuleViewController: FriendsModuleViewInput {
-    func updateData(friends: [User]) {
-        self.friends = friends
-        tableView.reloadData()
-    }
-    
     static func create() -> FriendsModuleViewController {
         let view = FriendsModuleViewController()
         return view
+    }
+    
+    func updateData() {
+        tableView.reloadData()
     }
 }
 // MARK: - TableView
 extension FriendsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friends.count
+        output?.itemsCount ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsTableViewCell.reuseId) as! FriendsTableViewCell
-        cell.config(with: friends[indexPath.row])
+        let friend = output?.getItem(row: indexPath.row)
+        cell.config(with: friend)
         return cell
     }
     
@@ -56,6 +56,6 @@ extension FriendsModuleViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        output?.showFriendsPhoto(sender: self, friend: friends[indexPath.row])
+        output?.showFriendsPhoto(sender: self, row: indexPath.row)
     }
 }

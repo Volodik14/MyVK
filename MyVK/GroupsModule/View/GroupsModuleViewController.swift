@@ -9,8 +9,6 @@
 import UIKit
 
 class GroupsModuleViewController: UITableViewController {
-    
-    private var groups = [Group]()
 
     var output: GroupsModuleViewOutput?
     //@IBOutlet private var navigationView: UIView!
@@ -18,8 +16,8 @@ class GroupsModuleViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier:
-                            FriendsTableViewCell.reuseId)
+        tableView.register(GroupsTableViewCell.self, forCellReuseIdentifier:
+                            GroupsTableViewCell.reuseId)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addTapped))
         //plusButton = createPlusButton()
         //setupConstraints()
@@ -32,13 +30,7 @@ class GroupsModuleViewController: UITableViewController {
 }
 
 extension GroupsModuleViewController: GroupsModuleViewInput {
-    func updateData(groups: [Group]) {
-        self.groups = groups
-        tableView.reloadData()
-    }
-    
-    func addGroup(group: Group) {
-        self.groups.append(group)
+    func updateData() {
         tableView.reloadData()
     }
     
@@ -48,28 +40,24 @@ extension GroupsModuleViewController: GroupsModuleViewInput {
     }
     
     @objc func addTapped() {
-        output?.plusButtonClicked(view: self, groups: groups)
+        output?.plusButtonClicked(view: self)
     }
 }
 
 
 extension GroupsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        output?.itemsCount ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendsTableViewCell.reuseId) as! FriendsTableViewCell
-        cell.config(with: groups[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.reuseId) as! GroupsTableViewCell
+        let group = output?.getItem(row: indexPath.row)
+        cell.config(with: group)
         return cell
     }
-    
-    
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
-    
-    
-    
 }

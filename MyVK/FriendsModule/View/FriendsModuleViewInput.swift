@@ -10,6 +10,6 @@ import UIKit
 
 protocol FriendsModuleViewInput: AnyObject {
     var output: FriendsModuleViewOutput? { get set }
-    func updateData(friends: [User])
+    func updateData()
 }
 

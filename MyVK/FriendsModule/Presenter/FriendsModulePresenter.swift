@@ -13,21 +13,28 @@ class FriendsModulePresenter {
     //weak var output: FriendsModuleModuleOutput?
     var interactor: FriendsModuleInteractorInput!
     var router: FriendsModuleRouterInput!
-
+    var friends = [User]()
 }
 
 
 // MARK: - FriendsModuleViewOutput
 extension FriendsModulePresenter: FriendsModuleViewOutput {
-    func showFriendsPhoto(sender: UIViewController, friend: User) {
-        router.showFriendPhotosViewController(sender: sender, id: friend.id)
+    var itemsCount: Int {
+        friends.count
+    }
+    
+    func getItem(row: Int) -> User {
+        friends[row]
+    }
+    
+    func showFriendsPhoto(sender: UIViewController, row: Int) {
+        router.showFriendPhotosViewController(sender: sender, id: friends[row].id)
     }
     
     func viewIsReady(tableView: UITableView) {
         interactor.getFriendsList()
         interactor.subscribeToChanges(tableView: tableView)
     }
-    
 }
 
 // MARK: - FriendsModuleInteractorOutput
@@ -41,7 +48,8 @@ extension FriendsModulePresenter: FriendsModuleInteractorOutput {
     }
     
     func getFriendsListSuccess(model: [User]) {
-        view.updateData(friends: model)
+        self.friends = model
+        view.updateData()
     }
     
     func getFriendsListFail(error: String) {

@@ -9,6 +9,8 @@
 import UIKit
 
 protocol GroupsModuleViewOutput: AnyObject {
+    var itemsCount: Int { get }
     func viewIsReady()
-    func plusButtonClicked(view: UIViewController, groups: [Group])
+    func plusButtonClicked(view: UIViewController)
+    func getItem(row: Int) -> Group
 }

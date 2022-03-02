@@ -9,6 +9,8 @@
 import UIKit
 
 protocol FriendsModuleViewOutput: AnyObject {
+    var itemsCount: Int { get }
     func viewIsReady(tableView: UITableView)
-    func showFriendsPhoto(sender: UIViewController, friend: User)
+    func showFriendsPhoto(sender: UIViewController, row: Int)
+    func getItem(row: Int) -> User
 }
