@@ -14,8 +14,6 @@ class AllGroupsModuleViewController: UITableViewController {
     
     private var resultSearchController = UISearchController()
     
-    //@IBOutlet private var navigationView: UIView!
-    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: Life cycle
     override func viewDidLoad() {

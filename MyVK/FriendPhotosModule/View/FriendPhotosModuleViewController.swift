@@ -11,8 +11,6 @@ import UIKit
 class FriendPhotosModuleViewController: UICollectionViewController {
 
     var output: FriendPhotosModuleViewOutput?
-    //@IBOutlet private var navigationView: UIView!
-    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     // MARK: Life cycle
     override func viewDidLoad() {

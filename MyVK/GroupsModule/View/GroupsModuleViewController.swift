@@ -11,16 +11,12 @@ import UIKit
 class GroupsModuleViewController: UITableViewController {
 
     var output: GroupsModuleViewOutput?
-    //@IBOutlet private var navigationView: UIView!
-    //@IBOutlet private var navigationViewHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(GroupsTableViewCell.self, forCellReuseIdentifier:
                             GroupsTableViewCell.reuseId)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addTapped))
-        //plusButton = createPlusButton()
-        //setupConstraints()
         output?.viewIsReady()
         
     }
