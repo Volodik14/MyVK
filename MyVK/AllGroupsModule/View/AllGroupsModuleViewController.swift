@@ -53,7 +53,7 @@ extension AllGroupsModuleViewController: AllGroupsModuleViewInput {
     }
 }
 
-// MARK: - TableView
+// MARK: - TableViewDataSource
 extension AllGroupsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         output?.itemsCount ?? 0
@@ -61,21 +61,26 @@ extension AllGroupsModuleViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AllGroupsTableViewCell.reuseId) as! AllGroupsTableViewCell
-        let group = output?.getItem(row: indexPath.row)
-        cell.config(with: group)
+        
+        if let group = output?.getItem(row: indexPath.row) {
+            cell.config(with: group)
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
-    
+}
+
+// MARK: - TableViewDelegate
+extension AllGroupsModuleViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         resultSearchController.dismiss(animated: true)
         output?.addGroup(sender: self, row: indexPath.row)
     }
 }
-
 // MARK: - Search bar delegate.
 extension AllGroupsModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

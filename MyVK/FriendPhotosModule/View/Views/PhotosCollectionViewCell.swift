@@ -18,6 +18,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setFriendPhoto()
+    }
+    
+    // Задаёт фото ячейки. Заполняет весь ContentView.
+    func setFriendPhoto() {
         friendPhoto.clipsToBounds = true
         friendPhoto.contentMode = .scaleAspectFit
         friendPhoto.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +40,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config (with photo: Photo?) {
-        let photoUrl = photo?.url ?? ""
+    func config (with photo: Photo) {
+        let photoUrl = photo.url
         self.friendPhoto.imageUrl = photoUrl
         self.friendPhoto.loadImage(from: self.friendPhoto.imageUrl)
     }

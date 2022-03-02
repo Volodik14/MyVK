@@ -17,6 +17,7 @@ class AllGroupsTableViewCell: ImageLabelTableViewCell {
         setSubsCount()
     }
     
+    // Задаём Label с количеством подписчиков.
     func setSubsCount() {
         groupSubsCount.font = groupSubsCount.font.withSize(10)
         
@@ -27,10 +28,10 @@ class AllGroupsTableViewCell: ImageLabelTableViewCell {
         groupSubsCount.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5).isActive = true
     }
     
-    func config (with group: Group?) {
-        name.text = group?.name ?? "Группа"
-        groupSubsCount.text = group?.countMembers ?? "0"
-        image.loadImage(from: group?.photo?.url)
+    func config (with group: Group) {
+        name.text = group.name
+        groupSubsCount.text = group.countMembers
+        image.loadImage(from: group.photo?.url)
     }
 
 }

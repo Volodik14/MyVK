@@ -17,23 +17,28 @@ class TabBarModuleViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true;
+        // Модуль списка друзей.
         let friendsModule = FriendsModuleModule()
         let friendsController = friendsModule.configuredFiewController()
         
+        // Модуль списка групп.
         let groupsModule = GroupsModuleModule()
         let groupsController = groupsModule.configuredFiewController()
         
+        // Добавление контроллеров модулей в стек.
         viewControllers = [
             generateNavigationController(rootViewController: friendsController, unselectedImage: UIImage(systemName: "person.fill"), selectedImage: UIImage(systemName: "person.fill"), title: "Друзья"),
             generateNavigationController(rootViewController: groupsController, unselectedImage: UIImage(systemName: "person.3.fill"), selectedImage: UIImage(systemName: "person.3.fill"), title: "Группы")
         ]
         
+        // Добавление контроллера ленты новостей.
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsfeedController") as? NewsfeedController {
             viewControllers?.append(generateNavigationController(rootViewController: viewController, unselectedImage: UIImage(systemName: "newspaper.fill"), selectedImage: UIImage(systemName: "newspaper.fill"), title: "Новости"))
         }
         
     }
     
+    // Задаёт картинку и заголовок NavigationViewController для входного контроллера.
     private func generateNavigationController(rootViewController: UIViewController, unselectedImage: UIImage?, selectedImage: UIImage?, title: String?) -> UIViewController {
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.setNavigationBarHidden(false, animated: true)

@@ -9,6 +9,7 @@ class FriendPhotosModuleModule {
     private let presenter = FriendPhotosModulePresenter()
     private let view: FriendPhotosModuleViewInput
 
+    // Задаём id пользователя, чьи фотографии нужно отображать.
     init(userId: String) {
         let interactor = FriendPhotosModuleInteractor(userId: userId)
         interactor.output = presenter

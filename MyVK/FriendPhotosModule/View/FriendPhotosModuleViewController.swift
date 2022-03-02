@@ -17,6 +17,8 @@ class FriendPhotosModuleViewController: UICollectionViewController {
         super.viewDidLoad()
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier:
                                     PhotosCollectionViewCell.reuseId)
+        
+        // Задаём высоту и ширину ячеек CollectionView.
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 128, height: 128)
         output?.viewIsReady()
@@ -41,12 +43,14 @@ extension FriendPhotosModuleViewController: FriendPhotosModuleViewInput {
     
 }
 
+// MARK: - CollectionViewDataCource
 extension FriendPhotosModuleViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.reuseId, for: indexPath) as! PhotosCollectionViewCell
         
-        let photo = output?.getItem(row: indexPath.row)
-        cell.config(with: photo)
+        if let photo = output?.getItem(row: indexPath.row) {
+            cell.config(with: photo)
+        }
         
         return cell
     }

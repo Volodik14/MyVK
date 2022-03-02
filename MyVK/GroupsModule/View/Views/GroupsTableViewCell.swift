@@ -8,8 +8,8 @@
 import UIKit
 
 class GroupsTableViewCell: ImageLabelTableViewCell {
-    func config (with group: Group?) {
-        name.text = group?.name ?? "Группа"
-        image.loadImage(from: group?.photo?.url)
+    func config (with group: Group) {
+        name.text = group.name
+        image.loadImage(from: group.photo?.url)
     }
 }

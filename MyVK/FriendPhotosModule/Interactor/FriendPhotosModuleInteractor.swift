@@ -13,6 +13,7 @@ class FriendPhotosModuleInteractor {
     var userId: String = ""
     var accessToken: String = ""
     
+    // Задаём id пользователя, чьи фотографии нужно отображать.
     init(userId: String) {
         self.userId = userId
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {

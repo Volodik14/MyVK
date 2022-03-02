@@ -24,6 +24,7 @@ class FriendsModuleViewController: UITableViewController {
     }
 }
 
+// MARK: - FriendsModuleViewInput
 extension FriendsModuleViewController: FriendsModuleViewInput {
     static func create() -> FriendsModuleViewController {
         let view = FriendsModuleViewController()
@@ -34,7 +35,8 @@ extension FriendsModuleViewController: FriendsModuleViewInput {
         tableView.reloadData()
     }
 }
-// MARK: - TableView
+
+// MARK: - TableViewDataSource
 extension FriendsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         output?.itemsCount ?? 0
@@ -42,15 +44,21 @@ extension FriendsModuleViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsTableViewCell.reuseId) as! FriendsTableViewCell
-        let friend = output?.getItem(row: indexPath.row)
-        cell.config(with: friend)
+        
+        if let friend = output?.getItem(row: indexPath.row) {
+            cell.config(with: friend)
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
-    
+}
+
+// MARK: - TableViewDelegate
+extension FriendsModuleViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         output?.showFriendsPhoto(sender: self, row: indexPath.row)
     }

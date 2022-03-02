@@ -9,9 +9,9 @@ import UIKit
 
 class FriendsTableViewCell: ImageLabelTableViewCell {
     
-    func config(with user: User?) {
-        let text = (user?.firstName ?? "Фамилия") + " " + (user?.lastName ?? "Имя")
+    func config(with user: User) {
+        let text = user.firstName + " " + user.lastName
         name.text = text
-        image.loadImage(from: user?.photo?.url)
+        image.loadImage(from: user.photo?.url)
     }
 }

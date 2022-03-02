@@ -18,13 +18,10 @@ class GroupsModuleViewController: UITableViewController {
                             GroupsTableViewCell.reuseId)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(addTapped))
         output?.viewIsReady()
-        
     }
-    
-    
-    
 }
 
+// MARK: - GroupsModuleViewInput
 extension GroupsModuleViewController: GroupsModuleViewInput {
     func updateData() {
         tableView.reloadData()
@@ -40,7 +37,7 @@ extension GroupsModuleViewController: GroupsModuleViewInput {
     }
 }
 
-
+// MARK: - TableViewDataSource
 extension GroupsModuleViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         output?.itemsCount ?? 0
@@ -48,8 +45,10 @@ extension GroupsModuleViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.reuseId) as! GroupsTableViewCell
-        let group = output?.getItem(row: indexPath.row)
-        cell.config(with: group)
+        if let group = output?.getItem(row: indexPath.row) {
+            cell.config(with: group)
+        }
+        
         return cell
     }
 

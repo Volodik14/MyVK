@@ -26,6 +26,7 @@ class ImageLabelTableViewCell: UITableViewCell {
         setName()
     }
     
+    // Задаёт картинку ячейки.
     internal func setImage() {
         contentView.addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +36,7 @@ class ImageLabelTableViewCell: UITableViewCell {
         image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2).isActive = true
     }
     
+    // Задаёт заголовок ячейки.
     internal func setName() {
         contentView.addSubview(name)
         name.translatesAutoresizingMaskIntoConstraints = false

@@ -16,7 +16,6 @@ class GroupsModuleRouter {
 // MARK: - GroupsModuleRouterInput
 extension GroupsModuleRouter: GroupsModuleRouterInput {
     func showAllGroupsModule(output: AllGroupsModuleModuleOutput, sender: UIViewController, groups: [Group]) {
-        let allGroupsModuleModule = AllGroupsModuleModule(output: output, userGroups: groups)
-        allGroupsModuleModule.present(from: sender)
+        AllGroupsModuleModule(output: output, userGroups: groups).present(from: sender)
     }
 }

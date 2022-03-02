@@ -10,7 +10,6 @@ import UIKit
 
 class FriendPhotosModulePresenter {
     weak var view: FriendPhotosModuleViewInput!
-    weak var output: FriendPhotosModuleModuleOutput?
     var interactor: FriendPhotosModuleInteractorInput!
     var router: FriendPhotosModuleRouterInput!
 

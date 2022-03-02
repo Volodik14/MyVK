@@ -16,7 +16,6 @@ class FriendsModuleRouter {
 // MARK: - FriendsModuleRouterInput
 extension FriendsModuleRouter: FriendsModuleRouterInput {
     func showFriendPhotosViewController(sender: UIViewController, id: String) {
-        let friendPhotosModule = FriendPhotosModuleModule(userId: id)
-        friendPhotosModule.present(from: sender)
+        FriendPhotosModuleModule(userId: id).present(from: sender)
     }
 }

@@ -17,9 +17,8 @@ class FriendsModuleInteractor {
 
 // MARK: - FriendsModuleInteractorInput
 extension FriendsModuleInteractor: FriendsModuleInteractorInput {
-    
+    // Получает список друзей из Realm.
     func getFriendsList() {
-        
         guard let realm = try? Realm() else { return }
         
         let friends = Array(realm.objects(User.self))
@@ -28,12 +27,13 @@ extension FriendsModuleInteractor: FriendsModuleInteractorInput {
         
     }
     
+    // Подписка на обновления в Realm для TableView.
     func subscribeToChanges(tableView: UITableView) {
         guard let realm = try? Realm() else { return }
         
         let friends = realm.objects(User.self)
         
-        notificationToken = friends.observe { [weak self] (changes: RealmCollectionChange) in
+        notificationToken = friends.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
                 tableView.reloadData()
